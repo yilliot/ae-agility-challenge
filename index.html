@@ -2,22 +2,54 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Agility</title>
+    <link rel="stylesheet" href="semantic/dist/semantic.min.css">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    Electron <script>document.write(process.versions.electron)</script>,
-    and Serialport <script>document.write(require('serialport/package').version)</script>.
-
-    <div id="error"></div>
-    <div id="ports"></div>
+    <section class="module" id="s01-select-port">
+      <div class="ui container">
+        <div class="ui hidden divider"></div>
+        <div class="ui horizontal divider">
+          Player Number
+        </div>
+        <div class="ui form">
+          <select name="player" id="choose-player" class="ui fluid dropdown">
+            <option value="1">1st</option>
+            <option value="2">2nd</option>
+          </select>
+        </div>
+        <h1 class="ui header">Connect to the Arduino</h1>
+        <div class="ui horizontal divider">
+          Choose the correct interface
+        </div>
+      </div>
+    </section>
+    <section class="module" id="s02-screen-saver">
+      <button class="ui primary fluid button" id="btn-to-waiting">Touch to begin</button>
+    </section>
+    <section class="module" id="s03-waiting">
+      <h1 class="ui header player-passive">Player 1 is ready! Touch to join </h1>
+      <h1 class="ui header player-active">Waiting for Player 2 to connect...</h1>
+      <div><span id="countdown">15</span>s</div>
+    </section>
+    <section class="module" id="s04-camera">
+      <div class="camera">
+        <video id="cam-video">Video stream not available.</video>
+        <button id="cam-startbutton">Take photo</button>
+      </div>
+      <canvas id="cam-canvas">
+      </canvas>
+      <div class="output">
+        <img id="cam-photo" alt="The screen capture will appear in this box.">
+      </div>
+    </section>
+    <section class="module" id="s05-game"></section>
+    <script src="index.js"></script>
   </body>
-
-  <script>
-    // You can also require other files to run in this process
-    require('./renderer.js')
-  </script>
 </html>

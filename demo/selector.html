@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>if (window.module) module = window.module;</script>
+    <script src="selector.js"></script>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    Electron <script>document.write(process.versions.electron)</script>,
+
+    <div id="error"></div>
+    <div id="ports"></div>
+    <button onclick="onall()">onall</button>
+    <button onclick="ofall()">ofall</button>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    // require('./renderer.js')
+  </script>
+
+</body>
+</html>
