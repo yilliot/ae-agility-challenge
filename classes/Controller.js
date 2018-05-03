@@ -3,16 +3,19 @@ module.exports = class Controller {
   {
   }
 
-  registerModules(fm, sm, pm, plm, ui, cm)
+  registerModules(fm, sm, am, pm, ui, cm, gm)
   {
     this.fm = fm;
     this.sm = sm;
+    this.am = am;
     this.pm = pm;
-    this.plm = plm;
     this.ui = ui;
     this.cm = cm;
+    this.gm = gm;
 
     this.fm.logoutUser();
+    // this.fm.loginUser(1);
+    this.singlePlayerMode();
   }
 
   initComEvent(ports)
@@ -21,12 +24,12 @@ module.exports = class Controller {
   }
   connectComPort(name)
   {
-    this.pm.connectComPort(name);
+    this.am.connectComPort(name);
   }
 
   loginUser()
   {
-    this.fm.loginUser(this.plm.getPlayer())
+    this.fm.loginUser(this.pm.getPlayer())
   }
 
   gotoScreenSaver()
@@ -35,53 +38,93 @@ module.exports = class Controller {
   }
   gotoWaiting()
   {
-    if (this.plm.getOpponentStage() == 1) {
+    if (this.pm.getOpponentStage() == 1) {
       // waiting for opponent
       this.sm.gotoWaiting()
+      this.ui.waitingCountdown(20, () => {
+        this.singlePlayerMode();
+      })
     } else {
       // single player mode
-      this.cm.initCamera()
-      this.sm.gotoCamera()      
+      this.singlePlayerMode();
     }
+  }
+
+  singlePlayerMode()
+  {
+    console.log('single player mode');
+    this.gm.mode = 1;
+    this.ui.clearWaitingCountdown();
+    this.cm.initCamera();
+    this.sm.gotoCamera();
+  }
+  twoPlayerMode()
+  {
+    console.log('two player mode');
+    this.gm.mode = 2;
+    this.ui.clearWaitingCountdown();
+    this.cm.initCamera();
+    this.sm.gotoCamera();
   }
 
   updatePlayerStage(stage)
   {
-    this.plm.updateStage(stage);
-    this.fm.updatePlayerStage(this.plm.getPlayer(), stage);
+    this.pm.updateStage(stage);
+    this.fm.updatePlayerStage(this.pm.getPlayer(), stage);
   }
 
   updateOpponentPlayerData(snapshot)
   {
-    if (snapshot.stage !== this.plm.getOpponentStage()) {
+    if (snapshot.stage !== this.pm.getOpponentStage()) {
       this.onOpponentChangedStageCallback(snapshot.stage);
     }
-    this.plm.updateOpponentStage(snapshot.stage)
+    this.pm.updateOpponentStage(snapshot.stage)
   }
 
   onDisconnected()
   {
-    this.fm.onDisconnected(this.plm.getPlayer());
+    this.fm.onDisconnected(this.pm.getPlayer());
   }
 
   onOpponentData()
   {
-    this.fm.onPlayerData(this.plm.getOpponentPlayer());
+    this.fm.onPlayerData(this.pm.getOpponentPlayer());
   }
 
   onOpponentChangedStageCallback(stage)
   {
-    this.plm.updateOpponentStage(stage);
+    this.pm.updateOpponentStage(stage);
     // EVENT : PASSIVE PLAYER MODE EVENT
-    if (stage == 2 && this.plm.getStage() === 1) {
+    if (stage == 2 && this.pm.getStage() === 1) {
       this.sm.gotoWaitingPassive();
+      this.ui.waitingCountdown(15, () => {
+        this.gotoScreenSaver()
+      });
     }
 
     // EVENT : ACTIVE PLAYER ACCEPTED EVENT
-    if (stage == 3 && this.plm.getStage() === 2) {
-      this.cm.initCamera()
-      this.sm.gotoCamera();
+    if (stage == 3 && this.pm.getStage() === 2) {
+      this.twoPlayerMode();
     }
+  }
 
+  startGame()
+  {
+    if (this.gm.mode == 1) {
+      this.sm.gotoGame();
+      this.gm.startAI();
+    } else {
+      this.updatePlayerStage(4);
+      if (this.pm.getOpponentStage() == 4) {
+        this.sm.gotoGame();
+        this.gm.startGame();
+      } else {
+        this.ui.waitingCountdown(60, () => {
+          this.gm.mode = 1;
+          this.sm.gotoGame();
+          this.gm.startAI();
+        });
+      }
+    }
   }
 }

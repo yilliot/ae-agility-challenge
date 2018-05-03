@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "data-table": "^2.0.0",
-    "serialport": "^4.0.7"
+    "serialport": "^4.0.7",
+    "virtual-keyboard": "^1.28.3"
   }
 }

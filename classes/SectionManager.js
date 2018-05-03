@@ -10,8 +10,13 @@ module.exports = class SectionManager {
       '#s05-game'         //4
     ];
 
-    this.gotoSelectPort();
+    // this.gotoSelectPort();
     // this.gotoScreenSaver();
+    // this.gotoWaiting()
+    // this.gotoWaitingPassive()
+    // this.gotoWaitingPassive()
+    
+
   }
 
   gotoSelectPort()
@@ -40,9 +45,6 @@ module.exports = class SectionManager {
     $('section.module').hide();
     $(this.modules[2]).show();
     $('.player-active').hide();
-    $(this.modules[2]).click(() => {
-      this.gotoCamera()
-    })
   }
   gotoCamera()
   {

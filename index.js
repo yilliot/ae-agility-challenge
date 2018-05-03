@@ -1,19 +1,65 @@
 const Controller = require('./classes/Controller');
 const FirebaseManager = require('./classes/FirebaseManager');
-const PortManager = require('./classes/PortManager');
+const ArduinoManager = require('./classes/ArduinoManager');
 const SectionManager = require('./classes/SectionManager');
 const PlayerManager = require('./classes/PlayerManager');
 const UiManager = require('./classes/UiManager');
 const CameraManager = require('./classes/CameraManager');
+const GameManager = require('./classes/GameManager');
 
 let ctrl = new Controller();
 let fm   = new FirebaseManager(firebase, ctrl);
 let sm   = new SectionManager(ctrl);
-let pm   = new PortManager(ctrl);
-let plm  = new PlayerManager(ctrl);
+let am   = new ArduinoManager(ctrl);
+let pm  = new PlayerManager(ctrl);
 let ui   = new UiManager(ctrl);
 let cm   = new CameraManager(ctrl);
-ctrl.registerModules(fm, sm, pm, plm, ui, cm);
+let gm   = new GameManager(ctrl);
+ctrl.registerModules(fm, sm, am, pm, ui, cm);
+
+$(function(){
+  $('#keyboard').keyboard({
+    usePreview : false,
+    appendTo : '#keyboard-area',
+    alwaysOpen : true,
+    display: {
+      'bksp'   : '\u2190',
+      'enter'  : 'return',
+      'normal' : 'ABC',
+      'meta1'  : '.?123',
+      'meta2'  : '#+=',
+      'accept' : '\u21d3'
+    },
+
+    layout: 'custom',
+    customLayout: {
+      'normal': [
+        'q w e r t y u i o p {bksp}',
+        'a s d f g h j k l {enter}',
+        '{s} z x c v b n m @ . {s}',
+        '{meta1} {space} _ -'
+      ],
+      'shift': [
+        'Q W E R T Y U I O P {bksp}',
+        'A S D F G H J K L {enter}',
+        '{s} Z X C V B N M @ . {s}',
+        '{meta1} {space} _ -'
+      ],
+      'meta1': [
+        '1 2 3 4 5 6 7 8 9 0 {bksp}',
+        '` | { } % ^ * / \' {enter}',
+        '{meta2} $ & ~ # = + . {meta2}',
+        '{normal} {space} ! ?'
+      ],
+      'meta2': [
+        '[ ] { } \u2039 \u203a ^ * " , {bksp}',
+        '\\ | / < > $ \u00a3 \u00a5 \u2022 {enter}',
+        '{meta1} \u20ac & ~ # = + . {meta1}',
+        '{normal} {space} ! ?'
+      ]
+    }
+  });
+});
 
 //   let series_data = [], timeBefore = 0, timeAfter = 0;
 

@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Agility</title>
     <link rel="stylesheet" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" href="node_modules/virtual-keyboard/dist/css/keyboard-dark.min.css">
+    <link rel="stylesheet" href="app.css">
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
     <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="semantic/dist/semantic.min.js"></script>
+    <script src="node_modules/virtual-keyboard/dist/js/jquery.keyboard.min.js"></script>
     <script>if (window.module) module = window.module;</script>
   </head>
   <body>
@@ -31,23 +34,28 @@
       </div>
     </section>
     <section class="module" id="s02-screen-saver">
-      <button class="ui primary fluid button" id="btn-to-waiting">Touch to begin</button>
+      <button id="btn-to-waiting"></button>
     </section>
     <section class="module" id="s03-waiting">
-      <h1 class="ui header player-passive">Player 1 is ready! Touch to join </h1>
-      <h1 class="ui header player-active">Waiting for Player 2 to connect...</h1>
-      <div><span id="countdown">15</span>s</div>
+      <img src="images/btn-huge-grey.png" class="player-active btn-waiting"  />
+      <img src="images/btn-huge.png" class="player-passive btn-waiting"  />
+      <div class="waiting-line01 white-text w800px player-active">Waiting for Player 2 to connect...</div>
+      <div class="waiting-line01 red-text w800px player-passive">Player 1 is ready! Touch to join </div>
+      <div class="waiting-line02 white-text w800px player-active"> <i class="time icon"></i> <span class="countdown">15</span>s</div>
+      <div class="waiting-line02 red-text w800px player-passive"> <i class="time icon"> </i> <span class="countdown">15</span>s</div>
     </section>
     <section class="module" id="s04-camera">
       <div class="camera">
-        <video id="cam-video">Video stream not available.</video>
-        <button id="cam-startbutton">Take photo</button>
+        <video id="cam-video" style="transform: rotateZ(90deg) rotateY(180deg);">Video stream not available.</video>
       </div>
-      <canvas id="cam-canvas">
+      <canvas id="cam-canvas" style="display: none;">
       </canvas>
       <div class="output">
-        <img id="cam-photo" alt="The screen capture will appear in this box.">
+        <img id="cam-photo" style="transform: rotateZ(-90deg)">
       </div>
+      <input type="text" id="keyboard" class="keyboard">
+      <div id="keyboard-area"></div>
+      <img src="images/btn-huge.png" id="btn-start-game">
     </section>
     <section class="module" id="s05-game"></section>
     <script src="index.js"></script>

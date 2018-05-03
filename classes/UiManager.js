@@ -1,17 +1,24 @@
 module.exports = class UiManager{
   constructor(ctrl)
   {
+    this.timer = null;
     this.ctrl = ctrl;
     this.initEvent();
   }
 
   initEvent()
   {
-    let that = this;
-
     // 01 Screen Savaer
-    $('#btn-to-waiting').click(function(){
-      that.ctrl.gotoWaiting();
+    $('#btn-to-waiting').click(() => {
+      this.ctrl.gotoWaiting();
+    })
+
+    $('.player-passive').click(() => {
+      this.ctrl.twoPlayerMode()
+    })
+
+    $('#btn-start-game').click(() => {
+      this.ctrl.startGame();
     })
   }
 
@@ -29,4 +36,22 @@ module.exports = class UiManager{
       that.ctrl.loginUser()
     });
   }
+
+  waitingCountdown(timer, callback)
+  {
+    this.timer = setInterval(() => {
+      if (timer>=0) {
+        $('.countdown').text(timer--);
+      } else {
+        this.clearWaitingCountdown();
+        callback();
+      }
+    }, 1000);
+  }
+
+  clearWaitingCountdown()
+  {
+    clearInterval(this.timer);
+  }
+
 }

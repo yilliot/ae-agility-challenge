@@ -9,13 +9,23 @@ module.exports = class CameraManager {
     this.video = $('#cam-video')[0];
     this.canvas = $('#cam-canvas')[0];
     this.photo = $('#cam-photo')[0];
-    this.startbutton = $('#cam-startbutton')[0];
 
     $('#cam-video').click(() => {
       this.takepicture()
     });
 
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    function gotDevices(deviceInfos) {
+      for (var i = 0; i !== deviceInfos.length; ++i) {
+        var deviceInfo = deviceInfos[i];
+        if (deviceInfo.kind === 'videoinput') {
+          console.log(deviceInfo.label + ':' + deviceInfo.deviceId);
+        }
+      }
+    }
+    navigator.mediaDevices.enumerateDevices().then(gotDevices).catch((e) => { console.log(e.message) });
+
+    // navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    navigator.mediaDevices.getUserMedia({ video : {deviceId : '7a854de5dacd7607d89cdb30e349b1b860d5b46c068c754f781f001770e9d9cf'} })
       .then((stream) => {
         this.video.srcObject = stream;
         this.video.play();
@@ -24,7 +34,7 @@ module.exports = class CameraManager {
         console.log("An error occured! " + err);
       });
 
-    this.width = 320;    // We will scale the photo width to this
+    this.width = 686;    // We will scale the photo width to this
     this.height = 0;     // This will be computed based on the input stream
     let streaming = false;
 

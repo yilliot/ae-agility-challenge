@@ -1,0 +1,100 @@
+@font-face {
+  font-family:opensans-bolditalic;
+  src:url(fonts/OpenSans-BoldItalic.ttf);
+}
+
+section.module{
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+}
+
+#s02-screen-saver{
+  background-image: url(images/bg01.png);
+  /*background-image: url(images/guide01.png);*/
+}
+
+#s02-screen-saver #btn-to-waiting{
+  background-color: rgba(0,0,0,0);
+  border: 0;
+  background-image: url(images/btn-touch-to-begin.png);
+  width: 896px;
+  height: 205px;
+  top: 1268px;
+  left: 88px;
+  position: relative;
+}
+
+#s03-waiting {
+  background-image: url(images/bg01.png);
+}
+
+#s03-waiting .btn-waiting{
+  top: 1268px;
+  left: 88px;
+  position: relative;  
+}
+.white-text{
+  font-family: opensans-bolditalic;
+  color: white;
+  font-size: 2.7em;  
+  text-align: center;
+}
+.red-text{
+  font-family: opensans-bolditalic;
+  color: #ad0102;
+  font-size: 2.7em;
+  text-align: center;
+}
+.w800px{
+  width: 800px;
+}
+#s03-waiting .waiting-line01{
+  top: 1318px;
+  left: 136px;
+  width: 800px;
+  position: absolute;
+}
+#s03-waiting .waiting-line02{
+  top: 1374px;
+  left: 136px;
+  width: 800px;
+  position: absolute;
+}
+
+/* 04 CAMERA */
+#s04-camera{
+  background-image: url(images/guide02.png);
+}
+
+#s04-camera .camera,
+#s04-camera .output
+{
+  position: absolute;
+  top: 344px;
+  left: 196px;
+}
+#s04-camera .output {z-index: 2;}
+#s04-camera #keyboard {
+  border: 0px;
+  position: absolute;
+  text-align: center;
+  font-size: 3.8em;
+  top: 1018px;
+  left: 256px;
+  width: 567px;
+  padding: 10px;
+}
+.keyboard:focus {
+    outline: none;
+}
+#s04-camera .ui-keyboard{
+  font-size: 21px;
+  background-color: white;
+  left: 90px;
+  right: 90px;
+  width: auto;
+  border: 0;
+  bottom: 522px;
+  box-shadow: 10px 10px 0 black;
+}

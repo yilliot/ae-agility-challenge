@@ -1,6 +1,6 @@
 const SerialPort = require('serialport');
 
-class PortManager
+class ArduinoManager
 {
   constructor(ctrl)
   {
