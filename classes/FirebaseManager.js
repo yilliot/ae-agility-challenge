@@ -43,9 +43,10 @@ module.exports = class FirebaseManager {
       .ref('users/' + user)
       .update({
         player_id: null,
-        player_photo: null,
+        player_photo_url: null,
         player_name: null,
         is_winner : null,
+        score : null,
       });
   }
   updatePlayerStage(player, stage)

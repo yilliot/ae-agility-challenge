@@ -80,34 +80,42 @@ module.exports = class Controller {
     this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_name', name)
     this.fm.updatePlayerAttribute(this.pm.player_id, 'name', name)
     if (this.cm.has_taken_photo) {
-      this.startGame();
+      this.readyToStartGame();
     } else {
       this.cm.count_down_take_picture();
       setTimeout(() => {
-        this.startGame();
+        this.readyToStartGame();
       }, 4000);
     }
   }
 
   // 05
-  startGame()
+  readyToStartGame()
   {
+    this.updatePlayerStage(4);
     if (this.gm.mode == 1) {
-      this.sm.gotoGame();
-      this.gm.startAI();
+      this.startGameAI();
     } else {
-      this.updatePlayerStage(4);
       if (this.pm.getOpponentStage() == 4) {
-        this.sm.gotoGame();
-        this.gm.startGame();
+        this.startGameBattle();
       } else {
         this.ui.waitingCountdown(60, () => {
-          this.gm.mode = 1;
-          this.sm.gotoGame();
-          this.gm.startAI();
+          this.startGameAI();
         });
       }
     }
+  }
+  startGameAI()
+  {
+    this.gm.mode = 1;
+    this.sm.gotoGame();
+    this.gm.startAI();
+  }
+  startGameBattle()
+  {
+    this.gm.mode = 2;
+    this.sm.gotoGame();
+    this.gm.startGame();
   }
 
   // SHARED
@@ -150,6 +158,12 @@ module.exports = class Controller {
     if (stage == 3 && this.pm.getStage() === 2) {
       this.twoPlayerMode();
     }
+
+    // EVENT : ACTIVE PLAYER ACCEPTED EVENT
+    if (stage == 4 && this.pm.getStage() === 4) {
+      this.startGameBattle();
+    }
+
   }
 
 }
