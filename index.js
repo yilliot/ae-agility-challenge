@@ -8,7 +8,7 @@ const CameraManager = require('./classes/CameraManager');
 const GameManager = require('./classes/GameManager');
 
 let ctrl = new Controller();
-let fm   = new FirebaseManager(firebase, ctrl);
+let fm   = new FirebaseManager(firebase, ctrl, config);
 let sm   = new SectionManager(ctrl);
 let am   = new ArduinoManager(ctrl);
 let pm  = new PlayerManager(ctrl);

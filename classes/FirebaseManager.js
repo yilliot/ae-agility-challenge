@@ -1,15 +1,15 @@
 module.exports = class FirebaseManager {
-  constructor(firebase, ctrl)
+  constructor(firebase, ctrl, config)
   {
     this.Firebase = firebase;
     this.ctrl = ctrl;
     var config = {
-      apiKey: "AIzaSyDY2koLmpABB65fwaf0HHhBfzuK6mc_jRc",
-      authDomain: "ae-aglity-challenge.firebaseapp.com",
-      databaseURL: "https://ae-aglity-challenge.firebaseio.com",
-      projectId: "ae-aglity-challenge",
-      storageBucket: "ae-aglity-challenge.appspot.com",
-      messagingSenderId: "302554562396"
+      apiKey: config.api_key,
+      authDomain: config.auth_domain,
+      databaseURL: config.database_url,
+      projectId: config.project_id,
+      storageBucket: config.storage_bucket,
+      messagingSenderId: config.messaging_sender_id
     };
     firebase.initializeApp(config);
 

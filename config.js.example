@@ -1,0 +1,8 @@
+var config = {
+  'api_key' : "",
+  'authDomain' : "",
+  'database_url' : "",
+  'project_id' : "",
+  'storage_bucket' : "",
+  'messaging_sender_id' : ""
+};
