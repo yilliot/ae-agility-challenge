@@ -3,6 +3,21 @@
   src:url(fonts/OpenSans-BoldItalic.ttf);
 }
 
+#debug{
+  z-index: 10;
+  display: block;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 50%;
+}
+#debug table{
+  width: 100%;
+}
+#debug table td {
+  border: 1px solid #CCC;
+}
+
 section.module{
   width: 1080px;
   height: 1920px;
@@ -97,4 +112,27 @@ section.module{
   border: 0;
   bottom: 522px;
   box-shadow: 10px 10px 0 black;
+}
+#s04-camera #cam-video{
+  position: absolute;
+  top: 0;
+}
+#s04-camera .camera .count_down_text{
+  position: absolute;
+  left: 140px;
+  top: 230px;
+  z-index: 10;
+  font-size: 750px;
+  color: rgba(255,255,255,0.5);
+}
+
+#s04-camera #btn-start-game
+{
+  position: absolute;
+  top: 1566px;
+  left: 206px;
+}
+
+#s05-game{
+  
 }

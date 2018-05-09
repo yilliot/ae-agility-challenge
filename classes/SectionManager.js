@@ -10,7 +10,7 @@ module.exports = class SectionManager {
       '#s05-game'         //4
     ];
 
-    // this.gotoSelectPort();
+    this.gotoSelectPort();
     // this.gotoScreenSaver();
     // this.gotoWaiting()
     // this.gotoWaitingPassive()

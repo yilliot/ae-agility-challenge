@@ -1,6 +1,7 @@
 module.exports = class FirebaseManager {
   constructor(firebase, ctrl)
   {
+    this.Firebase = firebase;
     this.ctrl = ctrl;
     var config = {
       apiKey: "AIzaSyDY2koLmpABB65fwaf0HHhBfzuK6mc_jRc",
@@ -14,6 +15,7 @@ module.exports = class FirebaseManager {
 
     this.auth = firebase.auth();
     this.database = firebase.database();
+    this.storage = firebase.storage();
 
     var that = this;
     this.auth.onAuthStateChanged(function(user) {
@@ -36,15 +38,41 @@ module.exports = class FirebaseManager {
   logoutUser() {
     this.auth.signOut();
   }
-
+  resetUser(user) {
+    this.database
+      .ref('users/' + user)
+      .update({
+        player_id: null,
+        player_photo: null,
+        player_name: null,
+        is_winner : null,
+      });
+  }
   updatePlayerStage(player, stage)
   {
-    console.log(player + ' changed stage' + stage);
     this.database
       .ref('users/' + player)
       .update({
         stage: stage
       });
+  }
+  updateUserAttribute(user, key, value) {
+    let data = {};
+    data[key] = value;
+    this.database
+      .ref('users/' + user)
+      .update(data);
+  }
+
+  uploadBlob(player_id, blob)
+  {
+    var camRef = this.storage.ref('players/' + player_id + '.jpg');
+    camRef.put(blob).then((snapshot) => {
+      camRef.getDownloadURL().then((url) => {
+        this.ctrl.updateUserPhotoUrl(url);
+        console.log('Uploaded image : ' + url);
+      });
+    });
   }
 
   onPlayerData(player)
@@ -64,5 +92,25 @@ module.exports = class FirebaseManager {
     })
   }
 
+  newPlayer()
+  {
+    console.log('new player');
+    let newPlayerRef = this.database.ref('players').push();
+    newPlayerRef.set({
+      'created_at' : this.Firebase.database.ServerValue.TIMESTAMP,
+      'photo' : null,
+      'name' : null,
+      'email' : null,
+      'qrcode' : null
+    });
+    return newPlayerRef.getKey();
+  }
+  updatePlayerAttribute(player, key, value) {
+    let data = {};
+    data[key] = value;
+    this.database
+      .ref('players/' + player)
+      .update(data);
+  }
 
 }

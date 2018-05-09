@@ -15,10 +15,10 @@ class ArduinoManager
   {
     this.port = new SerialPort(name, {baud_rate:9600});
     this.port.on('open', function(){
-      console.log('OPENED');
+      console.log('port opened:' + name);
     });
   }
 
 }
 
-module.exports = PortManager;
+module.exports = ArduinoManager;

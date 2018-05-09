@@ -17,8 +17,8 @@ module.exports = class UiManager{
       this.ctrl.twoPlayerMode()
     })
 
-    $('#btn-start-game').click(() => {
-      this.ctrl.startGame();
+    $('#cam-photo').click(() => {
+      $('#cam-photo').attr('src', '');
     })
   }
 

@@ -15,6 +15,12 @@
     <script>if (window.module) module = window.module;</script>
   </head>
   <body>
+    <div id="debug">
+      <table>
+        <tr><th>PlayerId</th><td id="apid"></td></tr>
+        <tr><th>OppPlayerId</th><td id="bpid"></td></tr>
+      </table>
+    </div>
     <section class="module" id="s01-select-port">
       <div class="ui container">
         <div class="ui hidden divider"></div>
@@ -46,6 +52,7 @@
     </section>
     <section class="module" id="s04-camera">
       <div class="camera">
+        <div class="count_down_text"></div>
         <video id="cam-video" style="transform: rotateZ(90deg) rotateY(180deg);">Video stream not available.</video>
       </div>
       <canvas id="cam-canvas" style="display: none;">
@@ -55,7 +62,7 @@
       </div>
       <input type="text" id="keyboard" class="keyboard">
       <div id="keyboard-area"></div>
-      <img src="images/btn-huge.png" id="btn-start-game">
+      <img src="images/btn-start-disabled.png" id="btn-start-game">
     </section>
     <section class="module" id="s05-game"></section>
     <script src="index.js"></script>

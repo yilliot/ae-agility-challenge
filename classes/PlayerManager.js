@@ -1,10 +1,12 @@
 module.exports = class PlayerManager
 {
   constructor(ctrl) {
-    this.ctrl = ctrl;
+    this.player_id = null; // auto id firebase/player
     this.player = 1;
     this.stage = 0;
     this.opponent_stage = 0;
+
+    this.ctrl = ctrl;
     let that = this;
     $('#choose-player').change(function(){
       that.player = $(this).val();

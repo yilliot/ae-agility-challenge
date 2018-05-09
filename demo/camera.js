@@ -10,6 +10,35 @@
   var photo = null;
   var startbutton = null;
 
+
+  // firebase config
+  var config = {
+    apiKey: "AIzaSyDY2koLmpABB65fwaf0HHhBfzuK6mc_jRc",
+    authDomain: "ae-aglity-challenge.firebaseapp.com",
+    databaseURL: "https://ae-aglity-challenge.firebaseio.com",
+    projectId: "ae-aglity-challenge",
+    storageBucket: "ae-aglity-challenge.appspot.com",
+    messagingSenderId: "302554562396"
+  };
+  firebase.initializeApp(config);
+  var storageRef = firebase.storage().ref('player1/image01.jpg');
+  storageRef.getDownloadURL().then(function(url) {
+    photo = document.getElementById('photo');
+    photo.src = url;
+    // console.log(url);
+  });
+
+  function uploadImage(file)
+  {
+
+    var camRef = storageRef.child('player1/image01.jpg');
+
+    camRef.put(file).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+    });
+
+  }
+
   function startup() {
     video = document.getElementById('video');
     canvas = document.getElementById('canvas');
@@ -64,6 +93,8 @@
     
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
+
+      canvas.toBlob(uploadImage, 'image/jpeg', 0.95)
     } else {
       clearphoto();
     }

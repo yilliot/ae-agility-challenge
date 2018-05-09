@@ -15,29 +15,30 @@ module.exports = class Controller {
 
     this.fm.logoutUser();
     // this.fm.loginUser(1);
-    this.singlePlayerMode();
+    // this.singlePlayerMode();
   }
 
-  initComEvent(ports)
-  {
+  // INIT EVENT
+  initComEvent(ports) {
     this.ui.initComEvent(ports)
   }
-  connectComPort(name)
-  {
+
+  // 01
+  connectComPort(name) {
     this.am.connectComPort(name);
   }
-
-  loginUser()
-  {
+  loginUser() {
     this.fm.loginUser(this.pm.getPlayer())
   }
 
-  gotoScreenSaver()
-  {
+  // 02
+  gotoScreenSaver() {
     this.sm.gotoScreenSaver()
+    this.fm.resetUser(this.pm.getPlayer())
   }
-  gotoWaiting()
-  {
+
+  // 03
+  gotoWaiting() {
     if (this.pm.getOpponentStage() == 1) {
       // waiting for opponent
       this.sm.gotoWaiting()
@@ -50,23 +51,66 @@ module.exports = class Controller {
     }
   }
 
-  singlePlayerMode()
-  {
+  // 04
+  singlePlayerMode() {
     console.log('single player mode');
     this.gm.mode = 1;
-    this.ui.clearWaitingCountdown();
-    this.cm.initCamera();
-    this.sm.gotoCamera();
+    this.setupPlayer();
   }
-  twoPlayerMode()
-  {
+  twoPlayerMode() {
     console.log('two player mode');
     this.gm.mode = 2;
+    this.setupPlayer();
+  }
+  setupPlayer() {
+    let player_id = this.fm.newPlayer();
+    this.pm.player_id = player_id;
+    this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_id', player_id);
     this.ui.clearWaitingCountdown();
     this.cm.initCamera();
     this.sm.gotoCamera();
   }
+  uploadPlayerPhoto(blob) {
+    this.fm.uploadBlob(this.pm.player_id, blob);
+  }
+  updateUserPhotoUrl(url) {
+    this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_photo_url', url)
+  }
+  startGameBtnClick(name) {
+    this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_name', name)
+    this.fm.updatePlayerAttribute(this.pm.player_id, 'name', name)
+    if (this.cm.has_taken_photo) {
+      this.startGame();
+    } else {
+      this.cm.count_down_take_picture();
+      setTimeout(() => {
+        this.startGame();
+      }, 4000);
+    }
+  }
 
+  // 05
+  startGame()
+  {
+    if (this.gm.mode == 1) {
+      this.sm.gotoGame();
+      this.gm.startAI();
+    } else {
+      this.updatePlayerStage(4);
+      if (this.pm.getOpponentStage() == 4) {
+        this.sm.gotoGame();
+        this.gm.startGame();
+      } else {
+        this.ui.waitingCountdown(60, () => {
+          this.gm.mode = 1;
+          this.sm.gotoGame();
+          this.gm.startAI();
+        });
+      }
+    }
+  }
+
+  // SHARED
   updatePlayerStage(stage)
   {
     this.pm.updateStage(stage);
@@ -108,23 +152,4 @@ module.exports = class Controller {
     }
   }
 
-  startGame()
-  {
-    if (this.gm.mode == 1) {
-      this.sm.gotoGame();
-      this.gm.startAI();
-    } else {
-      this.updatePlayerStage(4);
-      if (this.pm.getOpponentStage() == 4) {
-        this.sm.gotoGame();
-        this.gm.startGame();
-      } else {
-        this.ui.waitingCountdown(60, () => {
-          this.gm.mode = 1;
-          this.sm.gotoGame();
-          this.gm.startAI();
-        });
-      }
-    }
-  }
 }

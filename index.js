@@ -15,7 +15,7 @@ let pm  = new PlayerManager(ctrl);
 let ui   = new UiManager(ctrl);
 let cm   = new CameraManager(ctrl);
 let gm   = new GameManager(ctrl);
-ctrl.registerModules(fm, sm, am, pm, ui, cm);
+ctrl.registerModules(fm, sm, am, pm, ui, cm, gm);
 
 $(function(){
   $('#keyboard').keyboard({
@@ -29,6 +29,17 @@ $(function(){
       'meta1'  : '.?123',
       'meta2'  : '#+=',
       'accept' : '\u21d3'
+    },
+    'change' : function() {
+      let name = $('#keyboard').val().trim();
+      $('#btn-start-game').unbind('click');
+      $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
+      if (name.length != 0) {
+        $('#btn-start-game').attr('src', 'images/btn-start.png');
+        $('#btn-start-game').on('click', () => {
+          ctrl.startGameBtnClick(name);
+        });
+      }
     },
 
     layout: 'custom',

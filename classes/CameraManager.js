@@ -2,6 +2,7 @@ module.exports = class CameraManager {
   constructor(ctrl)
   {
     this.ctrl = ctrl;
+    this.has_taken_photo = false;
   }
 
   initCamera()
@@ -11,7 +12,7 @@ module.exports = class CameraManager {
     this.photo = $('#cam-photo')[0];
 
     $('#cam-video').click(() => {
-      this.takepicture()
+      this.count_down_take_picture()
     });
 
     function gotDevices(deviceInfos) {
@@ -52,26 +53,40 @@ module.exports = class CameraManager {
 
   }
 
-  clearphoto() {
-    var context = this.canvas.getContext('2d');
-    context.fillStyle = "#AAA";
-    context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    var data = this.canvas.toDataURL('image/png');
-    this.photo.setAttribute('src', data);
+  count_down_take_picture()
+  {
+    this.count_down(3, '.count_down_text', ()=>{this.take_picture()});
   }
 
-  takepicture() {
-    var context = this.canvas.getContext('2d');
-    if (this.width && this.height) {
-      this.canvas.width = this.width;
-      this.canvas.height = this.height;
-      context.drawImage(this.video, 0, 0, this.width, this.height);
-    
-      var data = this.canvas.toDataURL('image/png');
-      this.photo.setAttribute('src', data);
-    } else {
-      clearphoto();
+  count_down(seconds, placeholder, action) {
+    let countdown_interval;
+
+    function minus1()
+    {
+      $(placeholder).text(seconds);
+      if (seconds <= 0) {
+        action();
+        $(placeholder).text('');
+        clearInterval(countdown_interval);
+      }
+      seconds--;
     }
+    minus1();
+    countdown_interval = setInterval(minus1, 1000);
+  }
+
+
+  take_picture() {
+
+    var context = this.canvas.getContext('2d');
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    context.drawImage(this.video, 0, 0, this.width, this.height);
+  
+    var data = this.canvas.toDataURL('image/png');
+    this.canvas.toBlob((blob) => {this.ctrl.uploadPlayerPhoto(blob)}, 'image/jpeg', 0.95)
+    this.photo.setAttribute('src', data);
+
+    this.has_taken_photo = true;
   }
 }
