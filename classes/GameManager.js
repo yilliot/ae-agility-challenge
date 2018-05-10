@@ -43,9 +43,15 @@ module.exports = class GameManager {
     $('.player02 .player-score').text(this.p2_score);
   }
 
+  resetGame() {
+    this.gameover = false;
+    this.p1_score = 0;
+    this.p2_score = 0;
+  }
+
   startAI()
   {
-    this.gameover = false;
+    this.resetGame()
     console.log('startAI');
     let ai_range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
@@ -54,12 +60,12 @@ module.exports = class GameManager {
       let ai_fastest_reaction = 460;
       let reaction_variation_array = ai_range(ai_fastest_reaction, ai_fastest_reaction + 500);
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
-      console.log('reaction_variation:' + reaction_variation);
+      // console.log('reaction_variation:' + reaction_variation);
       if (!this.gameover)
         setTimeout(AIPlay, reaction_variation)
     }
     AIPlay()
-    this.startGame(60)
+    this.startGame(5)
   }
 
   lightOn(seconds)
@@ -116,13 +122,18 @@ module.exports = class GameManager {
     clearInterval(this.game_timeout);
     // win
     if (this.p1_score > this.p2_score) {
+      console.log('win');
       $('.player01 .player-photo').addClass('winner');
       $('.player02 .player-photo').removeClass('losser');
       $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
+      $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
+    // lose
     } else {
+      console.log('lose');
       $('.player01 .player-photo').addClass('losser');
       $('.player02 .player-photo').removeClass('winner');
       $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
+      $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-lose.png)');
     }
 
   }

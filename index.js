@@ -86,12 +86,11 @@ $(function(){
     'maxLength' : 15,
     'change' : function() {
       let email = $('#keyboard-email').val().trim();
-      $('#btn-start-game').unbind('click');
-      $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
+      $('#save-email').unbind('click');
       if (email.length != 0) {
-        $('#btn-start-game').attr('src', 'images/btn-start.png');
-        $('#btn-start-game').on('click', () => {
-          ctrl.startGameBtnClick(email);
+        $('#save-email').on('click', () => {
+          ctrl.gotoThankyou();
+          ctrl.saveEmail(email);
         });
       }
     },

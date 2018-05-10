@@ -22,20 +22,19 @@ module.exports = class UiManager{
       $('#cam-photo').attr('src', '');
     })
 
+    // 05
+    $('#btn-quit').click(() => {
+      this.ctrl.gotoScreenSaver();
+    })
+
     // 06
     $('#skip-email').click(() => {
       this.ctrl.gotoThankyou();      
-    })
-    $('#save-email').click(() => {
-      this.ctrl.gotoThankyou();
     })
     $('#s07-thankyou').click(() => {
       this.ctrl.gotoScreenSaver();
     })
 
-    $('#btn-quit').click(() => {
-      this.ctrl.gotoScreenSaver();
-    })
   }
 
   initComEvent(ports)

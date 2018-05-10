@@ -91,6 +91,7 @@ module.exports = class Controller {
     this.pm.player_id = player_id;
     this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_id', player_id);
     this.ui.clearWaitingCountdown();
+    this.cm.has_taken_photo = false;
     $('#cam-photo').attr('src', '');
     this.updatePlayerStage(3);
 
@@ -205,6 +206,9 @@ module.exports = class Controller {
   gotoResult() {
     $('section.module').hide();
     $('#s06-result').show();
+  }
+  saveEmail(email) {
+    this.fm.updatePlayerAttribute(this.pm.player_id, 'email', email)
   }
   // 07
   gotoThankyou() {
