@@ -293,7 +293,9 @@ module.exports = class Controller {
     if (stage == 4 && this.pm.getStage() === 3) {
       // B First
       // #WE
-      this.gotoScreenSaver();
+      this.opponent_left_timeout = setTimeout(() => {
+        this.gotoScreenSaver();
+      }, 60000);
     }
 
   }
