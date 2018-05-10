@@ -14,8 +14,10 @@ module.exports = class UiManager{
       this.ctrl.gotoWaiting();
     })
 
-    $('.player-passive').click(() => {
-      this.ctrl.twoPlayerMode()
+    $('#s03-waiting').click(() => {
+      if (!this.ctrl.pm.is_player_a) {
+        this.ctrl.twoPlayerMode()
+      }
     })
 
     $('#cam-photo').click(() => {
