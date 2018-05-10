@@ -57,7 +57,7 @@ module.exports = class GameManager {
 
     let AIPlay = () => {
       this.p2AddScore(1);
-      let ai_fastest_reaction = 460;
+      let ai_fastest_reaction = 3460;
       let reaction_variation_array = ai_range(ai_fastest_reaction, ai_fastest_reaction + 500);
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
       // console.log('reaction_variation:' + reaction_variation);
@@ -123,15 +123,15 @@ module.exports = class GameManager {
     // win
     if (this.p1_score > this.p2_score) {
       console.log('win');
-      $('.player01 .player-photo').addClass('winner');
-      $('.player02 .player-photo').removeClass('losser');
+      $('.player01 .player-photo').addClass('winner').removeClass('losser');
+      $('.player02 .player-photo').addClass('losser').removeClass('winner');
       $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
     // lose
     } else {
       console.log('lose');
-      $('.player01 .player-photo').addClass('losser');
-      $('.player02 .player-photo').removeClass('winner');
+      $('.player01 .player-photo').addClass('losser').removeClass('winner');
+      $('.player02 .player-photo').addClass('winner').removeClass('losser');
       $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-lose.png)');
     }
