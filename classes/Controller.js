@@ -94,6 +94,7 @@ module.exports = class Controller {
     this.cm.has_taken_photo = false;
     $('#cam-photo').attr('src', '');
     this.updatePlayerStage(3);
+    $('#wb-timer-text').hide();
 
     $('section.module').hide();
     $('#s04-camera').show();

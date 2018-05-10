@@ -58,6 +58,7 @@ module.exports = class UiManager{
   {
     $('#btn-start-game').unbind('click');
     $('#btn-start-game').attr('src', 'images/btn-waiting-player.png');
+    $('#wb-timer-text').show();
   }
   waitingCountdown(timer, callback)
   {

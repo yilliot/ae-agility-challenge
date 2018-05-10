@@ -48,6 +48,8 @@ module.exports = class GameManager {
     this.gameover = false;
     this.p1_score = 0;
     this.p2_score = 0;
+    $('.player01 .player-photo,.player02 .player-photo').removeClass('losser').removeClass('winner');
+
   }
 
   startAI()
