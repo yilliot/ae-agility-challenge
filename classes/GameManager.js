@@ -7,7 +7,8 @@ module.exports = class GameManager {
     this.p1_score = 0;
     this.p2_score = 0;
     this.gameover = false;
-    this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    // this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    this.light_array = [1, 2, 3];
     this.light_index = null;
     this.game_timer_seconds = 0;
 
@@ -57,7 +58,8 @@ module.exports = class GameManager {
 
     let AIPlay = () => {
       this.p2AddScore(1);
-      let ai_fastest_reaction = 3460;
+      let ai_fastest_reaction = 460;
+      // let ai_fastest_reaction = 3460;
       let reaction_variation_array = ai_range(ai_fastest_reaction, ai_fastest_reaction + 500);
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
       // console.log('reaction_variation:' + reaction_variation);
