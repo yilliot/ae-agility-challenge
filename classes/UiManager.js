@@ -78,9 +78,9 @@ module.exports = class UiManager{
   }
   updateOpponentPlayerData(snapshot)
   {
-    $('#player02 .player-name').text(snapshot.player_name);
-    $('#player02 .player-photo').attr('src', snapshot.player_photo_url);
-    $('#player02 .player-score').text(snapshot.score);
+    $('.player02 .player-name').text(snapshot.player_name);
+    $('.player02 .player-photo').attr('src', snapshot.player_photo_url);
+    $('.player02 .player-score').text(snapshot.score);
   }
 
 }
