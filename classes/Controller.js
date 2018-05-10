@@ -157,6 +157,8 @@ module.exports = class Controller {
         // B first
         // #WD
         this.startGameBattle();
+        clearInterval(this.ctrl.ui.timer);
+        clearInterval(this.opponent_left_timeout);
 
       } else {
 
@@ -288,6 +290,7 @@ module.exports = class Controller {
       // #WC
       this.startGameBattle();
       clearInterval(this.ctrl.ui.timer);
+      clearInterval(this.opponent_left_timeout);
     }
 
     // EVENT : B first And A left
