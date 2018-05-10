@@ -10,6 +10,7 @@ module.exports = class UiManager{
   {
     // 01 Screen Savaer
     $('#s02-screen-saver').click(() => {
+      this.ctrl.pm.is_player_a = true;
       this.ctrl.gotoWaiting();
     })
 
@@ -29,6 +30,10 @@ module.exports = class UiManager{
       this.ctrl.gotoThankyou();
     })
     $('#s07-thankyou').click(() => {
+      this.ctrl.gotoScreenSaver();
+    })
+
+    $('#btn-quit').click(() => {
       this.ctrl.gotoScreenSaver();
     })
   }

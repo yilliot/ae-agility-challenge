@@ -9,6 +9,7 @@ module.exports = class GameManager {
     this.gameover = false;
     this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     this.light_index = null;
+    this.game_timer_seconds = 0;
 
     this.initKeyEvent();
   }
@@ -89,6 +90,8 @@ module.exports = class GameManager {
 
   startGame(seconds)
   {
+    console.log('start game');
+    console.log(seconds);
     this.gameover = false;
     let game_timeout;
     let that = this;
@@ -98,9 +101,9 @@ module.exports = class GameManager {
         clearInterval(game_timeout);
         that.gameOver();
       }
-      seconds--;
+      this.game_timer_seconds = seconds--;
     };
-    game_timeout = setInterval(countdown,1000);
+    game_timeout = setInterval(countdown, 1000);
     this.lightOn(3);
   }
 

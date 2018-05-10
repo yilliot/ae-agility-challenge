@@ -29,6 +29,7 @@
 }
 
 section.module{
+  overflow: hidden;
   width: 1080px;
   height: 1920px;
   position: relative;
@@ -38,14 +39,15 @@ section.module{
 }
 
 #s03-waiting .btn-waiting{
-  top: 1268px;
+  top: 1518px;
   left: 88px;
-  position: relative;  
+  position: relative;
+  transform: scale(1.3);
 }
 .white-text{
   font-family: opensans-bolditalic;
   color: white;
-  font-size: 2.7em;  
+  font-size: 3em;  
   text-align: center;
 }
 .red-text{
@@ -58,13 +60,13 @@ section.module{
   width: 800px;
 }
 #s03-waiting .waiting-line01{
-  top: 1318px;
+  top: 1560px;
   left: 136px;
   width: 800px;
   position: absolute;
 }
 #s03-waiting .waiting-line02{
-  top: 1374px;
+  top: 1641px;
   left: 136px;
   width: 800px;
   position: absolute;

@@ -5,6 +5,7 @@ module.exports = class PlayerManager
     this.player = 1;
     this.stage = 0;
     this.opponent_stage = 0;
+    this.is_player_a = false;
 
     this.ctrl = ctrl;
     let that = this;

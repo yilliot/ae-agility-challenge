@@ -1,6 +1,11 @@
 module.exports = class Controller {
   constructor() {
-    this.gotoResult();
+    this.gotoSelectPort();
+    // this.gotoWaiting();
+    // $('section.module').hide();
+    // $('#s03-waiting').show();
+    // $('.player-passive').hide();
+
   }
   gotoSelectPort() {
     $('section.module').hide();
@@ -42,19 +47,24 @@ module.exports = class Controller {
     $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
     this.updatePlayerStage(1);
     this.fm.resetUser(this.pm.getPlayer())
+    this.gm.gameover = true;
+    this.gm.light_index = null;
+    this.gm.game_timer_seconds = 0;
   }
 
   // 03 WAITING PAGE
   gotoWaiting() {
-    $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
+    $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
     if (this.pm.getOpponentStage() == 1) {
       // waiting for opponent
       this.updatePlayerStage(2);
       $('section.module').hide();
       $('#s03-waiting').show();
       $('.player-passive').hide();
+      $('.player-active').show();
+      $('.countdown').text(15);
 
-      this.ui.waitingCountdown(20, () => {
+      this.ui.waitingCountdown(15, () => {
         this.singlePlayerMode();
       })
     } else {
@@ -81,8 +91,15 @@ module.exports = class Controller {
     this.ui.clearWaitingCountdown();
     this.cm.initCamera();
     this.updatePlayerStage(3);
+
     $('section.module').hide();
     $('#s04-camera').show();
+
+    $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
+
+    $('.keyboard').val('');
+    $('#btn-start-game').unbind('click');
+    $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
 
   }
   uploadPlayerPhoto(blob) {
@@ -108,7 +125,11 @@ module.exports = class Controller {
 
     if (this.cm.has_taken_photo) {
       this.readyToStartGame();
+      $('#btn-start-game').unbind('click');
+      $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
     } else {
+      $('#btn-start-game').unbind('click');
+      $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
       this.cm.count_down_take_picture();
       setTimeout(() => {
         this.readyToStartGame();
@@ -230,7 +251,9 @@ module.exports = class Controller {
       $('section.module').hide();
       $('#s03-waiting').show();
       $('.player-active').hide();
-      $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
+      $('.player-passive').show();
+      $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
+      $('.countdown').text(15);
 
       this.ui.waitingCountdown(15, () => {
         this.gotoScreenSaver()
@@ -238,7 +261,11 @@ module.exports = class Controller {
     }
 
     // EVENT : ACTIVE PLAYER ACCEPTED EVENT
-    if (stage == 3 && this.pm.getStage() === 2) {
+    if (
+      this.pm.is_player_a &&
+      this.pm.getStage() === 2 &&
+      stage == 3
+    ) {
       this.twoPlayerMode();
     }
 
