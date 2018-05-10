@@ -86,6 +86,7 @@ module.exports = class CameraManager {
     var data = this.canvas.toDataURL('image/png');
     this.canvas.toBlob((blob) => {this.ctrl.uploadPlayerPhoto(blob)}, 'image/jpeg', 0.95)
     this.photo.setAttribute('src', data);
+    $('.player01 .player-photo').attr('src', data);
 
     this.has_taken_photo = true;
   }

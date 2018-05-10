@@ -9,7 +9,7 @@ module.exports = class UiManager{
   initEvent()
   {
     // 01 Screen Savaer
-    $('#btn-to-waiting').click(() => {
+    $('#s02-screen-saver').click(() => {
       this.ctrl.gotoWaiting();
     })
 
@@ -19,6 +19,17 @@ module.exports = class UiManager{
 
     $('#cam-photo').click(() => {
       $('#cam-photo').attr('src', '');
+    })
+
+    // 06
+    $('#skip-email').click(() => {
+      this.ctrl.gotoThankyou();      
+    })
+    $('#save-email').click(() => {
+      this.ctrl.gotoThankyou();
+    })
+    $('#s07-thankyou').click(() => {
+      this.ctrl.gotoScreenSaver();
     })
   }
 
@@ -57,6 +68,12 @@ module.exports = class UiManager{
   clearWaitingCountdown()
   {
     clearInterval(this.timer);
+  }
+  updateOpponentPlayerData(snapshot)
+  {
+    $('#player02 .player-name').text(snapshot.player_name);
+    $('#player02 .player-photo').attr('src', snapshot.player_photo_url);
+    $('#player02 .player-score').text(snapshot.score);
   }
 
 }

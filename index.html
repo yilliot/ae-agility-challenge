@@ -22,7 +22,7 @@
         <tr><th>OppPlayerId</th><td id="bpid"></td></tr>
       </table>
     </div>
-    <video src="videos/bg-loop.mp4" autoplay="autoplay" id="backdrop-video"></video>
+    <video src="videos/bg-loop.mp4" autoplay="autoplay" loop="loop" id="backdrop-video"></video>
     <section class="module" id="s01-select-port">
       <div class="ui container">
         <div class="ui hidden divider"></div>
@@ -42,7 +42,6 @@
       </div>
     </section>
     <section class="module" id="s02-screen-saver">
-      <button id="btn-to-waiting"></button>
     </section>
     <section class="module" id="s03-waiting">
       <img src="images/btn-huge-grey.png" class="player-active btn-waiting"  />
@@ -63,27 +62,67 @@
       <div class="output">
         <img id="cam-photo" style="transform: rotateZ(-90deg)">
       </div>
-      <input type="text" id="keyboard" class="keyboard">
-      <div id="keyboard-area"></div>
+      <img src="images/icon-tick.png" alt="" id="tick">
+      <input type="text" id="keyboard-name" class="keyboard" maxlength="10">
+      <div id="keyboard-name-area"></div>
       <img src="images/btn-start-disabled.png" id="btn-start-game">
     </section>
 
     <section class="module" id="s05-game">
-      <div id="player01" class="player-box">
-        <img src="https://firebasestorage.googleapis.com/v0/b/ae-aglity-challenge.appspot.com/o/players%2F-LC4KKofGOjlM8ENjm3w.jpg?alt=media&token=ab76849c-929f-44ec-be41-4dd1cc0f7c35" class="player-photo">
-        <div class="player-name">Phoebe Gan</div>
+      <div class="player01 player-box">
+        <img src="images/loading.png" class="player-photo">
+        <div class="player-name"></div>
         <div class="player-score-text">
-          <div>SCORE: <span class="player-score">130</span></div>
+          <div>SCORE: <span class="player-score">0</span></div>
         </div>
       </div>
-      <div id="player02" class="player-box">
-        <img src="https://firebasestorage.googleapis.com/v0/b/ae-aglity-challenge.appspot.com/o/players%2F-LC33cNvSFfoTq9rg9Yo.jpg?alt=media&token=dcc679c6-c925-4c1a-98ff-58a6ce97cc3e" class="player-photo">
-        <div class="player-name">Elliot Yap</div>
+      <div class="player02 player-box">
+        <img src="images/loading.png" class="player-photo">
+        <div class="player-name"></div>
         <div class="player-score-text">
-          <div>SCORE: <span class="player-score">1</span></div>
+          <div>SCORE: <span class="player-score">0</span></div>
         </div>
       </div>
       <div id="game-timer">60</div>
+      <img src="images/btn-quit.png" id="btn-quit">
+    </section>
+    <section class="module" id="s06-result">
+      <div class="player01 player-box">
+        <img src="images/loading.png" class="player-photo winner">
+        <div class="player-name"></div>
+        <div class="player-score-text">
+          <div>SCORE: <span class="player-score">0</span></div>
+        </div>
+      </div>
+      <div class="player02 player-box">
+        <img src="images/loading.png" class="player-photo losser">
+        <div class="player-name"></div>
+        <div class="player-score-text">
+          <div>SCORE: <span class="player-score">0</span></div>
+        </div>
+      </div>
+
+      <input type="text" id="keyboard-email" class="keyboard" maxlength="18">
+      <div id="keyboard-email-area"></div>
+      <div id="skip-email"></div>
+      <div id="save-email"></div>
+    </section>
+    <section class="module" id="s07-thankyou">
+      <div class="player01 player-box">
+        <img src="images/loading.png" class="player-photo">
+        <div class="player-name"></div>
+        <div class="player-score-text">
+          <div>SCORE: <span class="player-score">0</span></div>
+        </div>
+      </div>
+      <div class="player02 player-box">
+        <img src="images/loading.png" class="player-photo">
+        <div class="player-name"></div>
+        <div class="player-score-text">
+          <div>SCORE: <span class="player-score">0</span></div>
+        </div>
+      </div>
+
     </section>
     <script src="index.js"></script>
   </body>

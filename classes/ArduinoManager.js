@@ -22,7 +22,7 @@ class ArduinoManager
     };
 
     SerialPort.list((err, ports) => {
-      console.log(ports);
+      // console.log(ports);
       ctrl.initComEvent(ports);
     });
   }
@@ -38,7 +38,7 @@ class ArduinoManager
     let buffer = [];
     this.port.on('data', (data) => {
       buffer = [...buffer, ...data];
-      console.log(buffer);
+      // console.log(buffer);
       if (
         buffer[buffer.length-1] == 10 &&
         buffer[buffer.length-2] == 13
@@ -47,12 +47,21 @@ class ArduinoManager
           buffer.map((a) => {
             btn_name += String.fromCharCode(a);
           });
-          this.ctrl.triggerButton(this.btn_indexes[btn_name.trim()]);
-          console.log('btn:' + this.btn_indexes[btn_name.trim()]);
+          // console.log(btn_name.trim());
+          if (this.btn_indexes[btn_name.trim()]) {
+            // console.log('btn:' + this.btn_indexes[btn_name.trim()]);
+            this.ctrl.triggerButton(this.btn_indexes[btn_name.trim()]);
+          }
           buffer = [];
       }
-      // array.length >= 7 
     });
+  }
+
+  lightOn(index) {
+    this.port.write('on_'+index+'\n');
+  }
+  lightOff() {
+    this.port.write('alloff\n');
   }
 
 }

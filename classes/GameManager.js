@@ -10,17 +10,18 @@ module.exports = class GameManager {
     this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     this.light_index = null;
 
-    let that = this;
-    $('li.light').click(function(){
-      let index = $(this).data('index');
-      console.log('hit: '+index);
-      that.triggerButton(index);
-    })
+    this.initKeyEvent();
+  }
 
+  initKeyEvent(){
+    $(document).keypress((e)=>{
+      this.triggerButton(e.key);
+    });
   }
 
   triggerButton(index)
   {
+    console.log('hit:' + index);
     if (this.light_index == index) {
       this.p1AddScore(1);
       this.lightOff();
@@ -30,12 +31,15 @@ module.exports = class GameManager {
   p1AddScore(n)
   {
     this.p1_score += n;
-    $('#player01 .player-score').text(this.p1_score);
+    $('.player01 .player-score').text(this.p1_score);
+    if (this.mode == 2) {
+      this.ctrl.updateScore(this.p1_score);
+    }
   }
   p2AddScore(n)
   {
     this.p2_score += n;
-    $('#player02 .player-score').text(this.p2_score);
+    $('.player02 .player-score').text(this.p2_score);
   }
 
   startAI()
@@ -59,7 +63,8 @@ module.exports = class GameManager {
     this.light_index = this.light_array[Math.floor(Math.random() * this.light_array.length)];
     // DEMO light
     console.log('on:' + this.light_index);
-    $('#lights .light:nth-child(' + (this.light_index+1) + ')').addClass('up');
+    // $('#lights .light:nth-child(' + (this.light_index+1) + ')').addClass('up');
+    this.ctrl.lightOn(this.light_index);
 
     this.light_timer = setTimeout(() => {
       this.lightOff(this.light_index)
@@ -70,6 +75,8 @@ module.exports = class GameManager {
   {
     // DEMO light
     $('#lights .light').removeClass('up');
+    this.ctrl.lightOff();
+
     clearInterval(this.light_timer);
 
     if (!this.gameover) {

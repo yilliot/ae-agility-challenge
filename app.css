@@ -34,24 +34,7 @@ section.module{
   position: relative;
 }
 
-#s02-screen-saver{
-  /*background-image: url(images/bg01.png);*/
-  /*background-image: url(images/guide01.png);*/
-}
-
-#s02-screen-saver #btn-to-waiting{
-  background-color: rgba(0,0,0,0);
-  border: 0;
-  background-image: url(images/btn-touch-to-begin.png);
-  width: 896px;
-  height: 205px;
-  top: 1268px;
-  left: 88px;
-  position: relative;
-}
-
 #s03-waiting {
-  background-image: url(images/bg01.png);
 }
 
 #s03-waiting .btn-waiting{
@@ -89,7 +72,7 @@ section.module{
 
 /* 04 CAMERA */
 #s04-camera{
-  background-image: url(images/guide02.png);
+  background-image: url(images/bg-camera.png);
 }
 
 #s04-camera .camera,
@@ -100,7 +83,7 @@ section.module{
   left: 196px;
 }
 #s04-camera .output {z-index: 2;}
-#s04-camera #keyboard {
+#s04-camera #keyboard-name {
   border: 0px;
   position: absolute;
   text-align: center;
@@ -113,15 +96,19 @@ section.module{
 .keyboard:focus {
     outline: none;
 }
+#s04-camera #tick{
+  position: absolute;
+  top: 1450px;
+  left: 64px;
+}
 #s04-camera .ui-keyboard{
-  font-size: 21px;
+  font-size: 20px;
   background-color: white;
   left: 90px;
   right: 90px;
   width: auto;
   border: 0;
-  bottom: 522px;
-  box-shadow: 10px 10px 0 black;
+  bottom: 524px;
 }
 #s04-camera #cam-video{
   position: absolute;
@@ -144,22 +131,32 @@ section.module{
 }
 
 #s05-game{
-  background-image: url(images/guide03.png);
+  background-image: url(images/bg-game.png);
 }
-#s05-game .player-box{
+#s05-game #btn-quit{
+  position: absolute;
+  top: 1550px;
+  left: 240px;
+}
+.player-box{
   top: 310px;
   width: 342px;
-  background-color: pink;
   position: absolute;
 }
-#s05-game .player-box .player-photo{
+.player-box .player-photo.winner{
+  box-shadow: 0px 0px 20px 10px rgba(255,255,0,1);
+}
+.player-box .player-photo.losser{
+  filter: grayscale(100%);
+}
+.player-box .player-photo{
   width: 463px;
   transform: rotateZ(-90deg);
   position: absolute;
   left: -59px;
   top: 55px;
 }
-#s05-game .player-box .player-name{
+.player-box .player-name{
   font-family: opensans-bolditalic;
   font-size: 53px;
   color: white;
@@ -168,7 +165,7 @@ section.module{
   text-align: center;
   top: 493px;
 }
-#s05-game .player-box .player-score-text{
+.player-box .player-score-text{
   font-family: opensans-bolditalic;
   font-size: 62px;
   color: #ff0;
@@ -189,10 +186,52 @@ section.module{
   text-align: center;
   width: 600px;
 }
-#s05-game #player01{
+.player01{
   left: 70px;
 }
-#s05-game #player02{
+.player02{
   left: 666px;
 }
 
+
+#s06-result #keyboard-email {
+  border: 0px;
+  position: absolute;
+  text-align: center;
+  font-size: 3.8em;
+  top: 1110px;
+  left: 85px;
+  width: 910px;
+  padding: 10px;
+}
+#s06-result .ui-keyboard{
+  font-size: 20px;
+  background-color: white;
+  left: 90px;
+  right: 90px;
+  width: auto;
+  border: 0;
+  bottom: 424px;
+}
+
+#s06-result #skip-email{
+  position: absolute;
+  width: 355px;
+  height: 138px;
+  top: 1580px;
+  left: 122px;
+}
+#s06-result #save-email{
+  position: absolute;
+  width: 355px;
+  height: 138px;
+  top: 1580px;
+  left: 622px;
+}
+
+#s06-result {
+  background-image: url(images/bg-res-win.png);
+}
+#s07-thankyou {
+  background-image: url(images/bg-thankyou-win.png);
+}
