@@ -117,11 +117,11 @@ module.exports = class GameManager {
     // win
     if (this.p1_score > this.p2_score) {
       $('.player01 .player-photo').addClass('winner');
-      $('.player01 .player-photo').removeClass('losser');
+      $('.player02 .player-photo').removeClass('losser');
       $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
     } else {
       $('.player01 .player-photo').addClass('losser');
-      $('.player01 .player-photo').removeClass('winner');
+      $('.player02 .player-photo').removeClass('winner');
       $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
     }
 
