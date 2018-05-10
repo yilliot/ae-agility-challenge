@@ -1,0 +1,1 @@
+electron-packager . --overwrite --asar=true --platform=win32 --arch=x64 --icon=icons/512x512_vci_icon.ico --prune=true --out=release-builds 

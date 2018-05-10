@@ -132,6 +132,10 @@ module.exports = class Controller {
     this.sm.gotoGame();
     this.gm.startGame();
   }
+  triggerButton(index)
+  {
+    this.gm.triggerButton(index)
+  }
 
   // SHARED
   updatePlayerStage(stage)

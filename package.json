@@ -21,13 +21,12 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1",
-    "electron-rebuild": "^1.4.0"
+    "electron": "^2.0.0",
+    "electron-rebuild": "^1.7.3"
   },
   "dependencies": {
-    "data-table": "^2.0.0",
     "qrcode": "^1.2.0",
-    "serialport": "^4.0.7",
+    "serialport": "^6.2.0",
     "virtual-keyboard": "^1.28.3"
   }
 }
