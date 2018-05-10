@@ -50,6 +50,8 @@ module.exports = class Controller {
     this.gm.gameover = true;
     this.gm.light_index = null;
     this.gm.game_timer_seconds = 0;
+    clearInterval(this.gm.game_timeout);
+
   }
 
   // 03 WAITING PAGE
@@ -89,7 +91,7 @@ module.exports = class Controller {
     this.pm.player_id = player_id;
     this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_id', player_id);
     this.ui.clearWaitingCountdown();
-    this.cm.initCamera();
+    $('#cam-photo').attr('src', '');
     this.updatePlayerStage(3);
 
     $('section.module').hide();
@@ -203,8 +205,6 @@ module.exports = class Controller {
   gotoResult() {
     $('section.module').hide();
     $('#s06-result').show();
-    $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
-
   }
   // 07
   gotoThankyou() {

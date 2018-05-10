@@ -45,13 +45,16 @@ module.exports = class GameManager {
 
   startAI()
   {
-    let range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
+    this.gameover = false;
+    console.log('startAI');
+    let ai_range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
     let AIPlay = () => {
       this.p2AddScore(1);
       let ai_fastest_reaction = 460;
-      let reaction_variation_array = range(ai_fastest_reaction, ai_fastest_reaction + 500);
+      let reaction_variation_array = ai_range(ai_fastest_reaction, ai_fastest_reaction + 500);
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
+      console.log('reaction_variation:' + reaction_variation);
       if (!this.gameover)
         setTimeout(AIPlay, reaction_variation)
     }
@@ -90,20 +93,17 @@ module.exports = class GameManager {
 
   startGame(seconds)
   {
-    console.log('start game');
-    console.log(seconds);
     this.gameover = false;
-    let game_timeout;
     let that = this;
-    let countdown = function(){
+    let countdown = () => {
       $('#game-timer').text(seconds);
       if (seconds <= 0) {
-        clearInterval(game_timeout);
+        clearInterval(this.game_timeout);
         that.gameOver();
       }
       this.game_timer_seconds = seconds--;
     };
-    game_timeout = setInterval(countdown, 1000);
+    this.game_timeout = setInterval(countdown, 1000);
     this.lightOn(3);
   }
 
@@ -112,6 +112,18 @@ module.exports = class GameManager {
     console.log('gameover');
     this.light_index = null;
     this.gameover = true;
+    this.ctrl.gotoResult();
+    clearInterval(this.game_timeout);
+    // win
+    if (this.p1_score > this.p2_score) {
+      $('.player01 .player-photo').addClass('winner');
+      $('.player01 .player-photo').removeClass('losser');
+      $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
+    } else {
+      $('.player01 .player-photo').addClass('losser');
+      $('.player01 .player-photo').removeClass('winner');
+      $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
+    }
 
   }
 

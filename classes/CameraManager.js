@@ -3,6 +3,7 @@ module.exports = class CameraManager {
   {
     this.ctrl = ctrl;
     this.has_taken_photo = false;
+    this.initCamera()
   }
 
   initCamera()
@@ -11,7 +12,6 @@ module.exports = class CameraManager {
     this.canvas = $('#cam-canvas')[0];
     this.photo = $('#cam-photo')[0];
     this.has_taken_photo = false;
-    $('#cam-photo').attr('src', '');
 
     $('#cam-video').click(() => {
       // this.count_down_take_picture()
