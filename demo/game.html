@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game</title>
+  <style>
+    #lights .light{display: block; width: 100px; height: 100px; border: 1px solid black;}
+    #lights .light.up{background-color: yellow;}
+  </style>
+</head>
+<body>
+  <div id="game-timer"></div>
+  <div id="player01">
+    <span class="player-score">0</span>
+  </div>
+  <div id="player02">
+    <span class="player-score">0</span>
+  </div>
+  <ul id="lights">
+    <li class="light" data-index="0">0</li>
+    <li class="light" data-index="1">1</li>
+    <li class="light" data-index="2">2</li>
+    <li class="light" data-index="3">3</li>
+    <li class="light" data-index="4">4</li>
+    <li class="light" data-index="5">5</li>
+    <li class="light" data-index="6">6</li>
+    <li class="light" data-index="7">7</li>
+    <li class="light" data-index="8">8</li>
+    <li class="light" data-index="9">9</li>
+    <li class="light" data-index="10">10</li>
+    <li class="light" data-index="11">11</li>
+  </ul>
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>if (window.module) module = window.module;</script>
+
+  <script src="./game.js"></script>
+</body>
+</html>

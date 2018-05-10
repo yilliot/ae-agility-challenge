@@ -24,7 +24,8 @@ module.exports = class FirebaseManager {
         that.ctrl.onDisconnected() // EVENT INIT
         that.ctrl.onOpponentData() // EVENT INIT
 
-        that.ctrl.gotoScreenSaver()
+        // that.ctrl.gotoScreenSaver()
+        that.ctrl.startGameAI()
       }
     });
   }

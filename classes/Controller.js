@@ -34,11 +34,14 @@ module.exports = class Controller {
   // 02
   gotoScreenSaver() {
     this.sm.gotoScreenSaver()
+    $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
+    this.updatePlayerStage(1);
     this.fm.resetUser(this.pm.getPlayer())
   }
 
   // 03
   gotoWaiting() {
+    $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
     if (this.pm.getOpponentStage() == 1) {
       // waiting for opponent
       this.sm.gotoWaiting()
@@ -93,13 +96,25 @@ module.exports = class Controller {
   readyToStartGame()
   {
     this.updatePlayerStage(4);
+
     if (this.gm.mode == 1) {
+
+      // A first
+      // #WA
       this.startGameAI();
     } else {
       if (this.pm.getOpponentStage() == 4) {
+
+        // B first
+        // #WD
         this.startGameBattle();
+
       } else {
+
+        // A first
+        this.ui.waitingPlayerCamera();
         this.ui.waitingCountdown(60, () => {
+          // #WB
           this.startGameAI();
         });
       }
@@ -159,9 +174,20 @@ module.exports = class Controller {
       this.twoPlayerMode();
     }
 
-    // EVENT : ACTIVE PLAYER ACCEPTED EVENT
+    // EVENT : A first And B responded
     if (stage == 4 && this.pm.getStage() === 4) {
+      // A First
+      // #WC
       this.startGameBattle();
+    }
+
+    // EVENT : B first And A left
+    if (stage == 3 && this.pm.getStage() === 4) {
+      // B First
+      // #WE
+      setTimeout(() => {
+        this.gotoScreenSaver();
+      }, 60000);
     }
 
   }

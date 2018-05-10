@@ -22,6 +22,7 @@
         <tr><th>OppPlayerId</th><td id="bpid"></td></tr>
       </table>
     </div>
+    <video src="videos/bg-loop.mp4" autoplay="autoplay" id="backdrop-video"></video>
     <section class="module" id="s01-select-port">
       <div class="ui container">
         <div class="ui hidden divider"></div>
@@ -51,6 +52,7 @@
       <div class="waiting-line02 white-text w800px player-active"> <i class="time icon"></i> <span class="countdown">15</span>s</div>
       <div class="waiting-line02 red-text w800px player-passive"> <i class="time icon"> </i> <span class="countdown">15</span>s</div>
     </section>
+
     <section class="module" id="s04-camera">
       <div class="camera">
         <div class="count_down_text"></div>
@@ -65,7 +67,24 @@
       <div id="keyboard-area"></div>
       <img src="images/btn-start-disabled.png" id="btn-start-game">
     </section>
-    <section class="module" id="s05-game"></section>
+
+    <section class="module" id="s05-game">
+      <div id="player01" class="player-box">
+        <img src="https://firebasestorage.googleapis.com/v0/b/ae-aglity-challenge.appspot.com/o/players%2F-LC4KKofGOjlM8ENjm3w.jpg?alt=media&token=ab76849c-929f-44ec-be41-4dd1cc0f7c35" class="player-photo">
+        <div class="player-name">Phoebe Gan</div>
+        <div class="player-score-text">
+          <div>SCORE: <span class="player-score">130</span></div>
+        </div>
+      </div>
+      <div id="player02" class="player-box">
+        <img src="https://firebasestorage.googleapis.com/v0/b/ae-aglity-challenge.appspot.com/o/players%2F-LC33cNvSFfoTq9rg9Yo.jpg?alt=media&token=dcc679c6-c925-4c1a-98ff-58a6ce97cc3e" class="player-photo">
+        <div class="player-name">Elliot Yap</div>
+        <div class="player-score-text">
+          <div>SCORE: <span class="player-score">1</span></div>
+        </div>
+      </div>
+      <div id="game-timer">60</div>
+    </section>
     <script src="index.js"></script>
   </body>
 </html>

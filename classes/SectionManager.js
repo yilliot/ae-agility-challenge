@@ -26,8 +26,6 @@ module.exports = class SectionManager {
   }
   gotoScreenSaver()
   {
-    this.ctrl.updatePlayerStage(1);
-
     $('section.module').hide();
     $(this.modules[1]).show();
   }

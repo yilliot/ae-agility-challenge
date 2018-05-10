@@ -2,10 +2,20 @@
   font-family:opensans-bolditalic;
   src:url(fonts/OpenSans-BoldItalic.ttf);
 }
-
+@font-face {
+  font-family:opensans-extrabolditalic;
+  src:url(fonts/OpenSans-ExtraBoldItalic.ttf);
+}
+@font-face {
+  font-family:opensans-semibolditalic;
+  src:url(fonts/OpenSans-SemiboldItalic.ttf);
+}
+#backdrop-video{
+  position: absolute;
+}
 #debug{
   z-index: 10;
-  display: block;
+  display: none;
   position: fixed;
   right: 0;
   top: 0;
@@ -25,7 +35,7 @@ section.module{
 }
 
 #s02-screen-saver{
-  background-image: url(images/bg01.png);
+  /*background-image: url(images/bg01.png);*/
   /*background-image: url(images/guide01.png);*/
 }
 
@@ -134,5 +144,55 @@ section.module{
 }
 
 #s05-game{
-  
+  background-image: url(images/guide03.png);
 }
+#s05-game .player-box{
+  top: 310px;
+  width: 342px;
+  background-color: pink;
+  position: absolute;
+}
+#s05-game .player-box .player-photo{
+  width: 463px;
+  transform: rotateZ(-90deg);
+  position: absolute;
+  left: -59px;
+  top: 55px;
+}
+#s05-game .player-box .player-name{
+  font-family: opensans-bolditalic;
+  font-size: 53px;
+  color: white;
+  -webkit-text-stroke: 2px black;
+  position: relative;
+  text-align: center;
+  top: 493px;
+}
+#s05-game .player-box .player-score-text{
+  font-family: opensans-bolditalic;
+  font-size: 62px;
+  color: #ff0;
+  -webkit-text-stroke: 2px #ab0000;
+  position: relative;
+  text-align: center;
+  top: 541px;
+}
+
+#s05-game #game-timer{
+  position: absolute;
+  top: 1225px;
+  font-family: opensans-extrabolditalic;
+  font-size: 223px;
+  color: #FFF;
+  -webkit-text-stroke: 2px #ab0000;
+  left: 240px;
+  text-align: center;
+  width: 600px;
+}
+#s05-game #player01{
+  left: 70px;
+}
+#s05-game #player02{
+  left: 666px;
+}
+

@@ -27,7 +27,7 @@ module.exports = class UiManager{
     let that = this;
     ports.forEach(function(port){
       $('#s01-select-port .container')
-        .append('<button class="ui fluid basic button com" data-comname="' + port.comName + '">' + port.comName + '</button>');
+        .append('<button class="ui fluid basic massive button com" data-comname="' + port.comName + '">' + port.comName + '</button>');
     });
 
     $('.com').click(function(){
@@ -37,6 +37,11 @@ module.exports = class UiManager{
     });
   }
 
+  waitingPlayerCamera()
+  {
+    $('#btn-start-game').unbind('click');
+    $('#btn-start-game').attr('src', 'images/btn-waiting-player.png');
+  }
   waitingCountdown(timer, callback)
   {
     this.timer = setInterval(() => {
