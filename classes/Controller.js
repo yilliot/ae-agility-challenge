@@ -264,6 +264,7 @@ module.exports = class Controller {
       });
     }
 
+    // SCREENSAVER - CAMERA
     // EVENT : ACTIVE PLAYER ACCEPTED EVENT
     if (
       this.pm.is_player_a &&
@@ -273,20 +274,26 @@ module.exports = class Controller {
       this.twoPlayerMode();
     }
 
+    // '#s01-select-port', //0
+    // '#s02-screen-saver',//1
+    // '#s03-waiting',     //2
+    // '#s04-camera',      //3
+    // '#s05-game'         //4
+
+    // CAMERA - GAME
     // EVENT : A first And B responded
     if (stage == 4 && this.pm.getStage() === 4) {
       // A First
       // #WC
       this.startGameBattle();
+      clearInterval(this.ctrl.ui.timer);
     }
 
     // EVENT : B first And A left
-    if (stage == 3 && this.pm.getStage() === 4) {
+    if (stage == 4 && this.pm.getStage() === 3) {
       // B First
       // #WE
-      setTimeout(() => {
-        this.gotoScreenSaver();
-      }, 60000);
+      this.gotoScreenSaver();
     }
 
   }

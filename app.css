@@ -132,6 +132,12 @@ section.module{
   left: 206px;
 }
 
+#wb-timer-text {
+  position: absolute;
+  top: 1500px;
+  left: 400px;
+}
+
 #s05-game{
   background-image: url(images/bg-game.png);
 }
