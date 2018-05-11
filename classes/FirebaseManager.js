@@ -29,7 +29,22 @@ module.exports = class FirebaseManager {
       }
     });
   }
-
+  getQrCode(callback) {
+    console.log('Calling Qr Code');
+    let that = this;
+    this.database.ref('codes')
+      .orderByChild('type')
+      .equalTo('agile')
+      .limitToFirst(1)
+      .once('value', function(snapshot) {
+        let code = Object.keys(snapshot.val())[0];
+        console.log(code);
+        callback(code);
+        // is dispensed
+        // that.database.ref('codes/' + code + '/isDispensed').set(true);
+        // that.database.ref('codes/' + code + '/type').set('dispensedAgile');
+      });
+  }
   loginUser(player) {
     let email = 'user' + player + '@mail.io';
     let pass = 'user' + player + '@mail.io';

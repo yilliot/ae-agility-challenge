@@ -131,6 +131,9 @@ module.exports = class GameManager {
       $('.player02 .player-photo').addClass('losser').removeClass('winner');
       $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
+      this.ctrl.fm.getQrCode((src) => {
+        console.log(src);
+      });
     // lose
     } else {
       console.log('lose');
