@@ -27,10 +27,20 @@ module.exports = class FirebaseManager {
           .onDisconnect()
           .update({stage: 0})
 
+        // ON OPPONENET UPDATE EVENT
         this.database
           .ref('users/' + this.ctrl.pm.getOpponentConfigPlayerId())
-          .on('value', function(snapshot){
+          .on('value', (snapshot) => {
             this.ctrl.updateOpponentPlayerData(snapshot.val());
+          });
+
+        // ON HISCORE EVENT
+        this.database
+          .ref('scores')
+          .orderByChild('score')
+          .limitToLast(3)
+          .on('child_added', (snapshot) => {
+            this.ctrl.ui.updateHiScore(snapshot);
           });
 
         this.ctrl.gotoScreenSaver()
@@ -93,6 +103,13 @@ module.exports = class FirebaseManager {
     data[key] = value;
     this.database
       .ref('players/' + player)
+      .update(data);
+  }
+
+  saveScores(data) {
+    console.log('new score');
+    this.database
+      .ref('scores/' + data.id)
       .update(data);
   }
 

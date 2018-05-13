@@ -21,6 +21,8 @@ module.exports = class GameManager {
     this.gameover = true;
     this.light_index = null;
     $('.player01 .player-photo,.player02 .player-photo').removeClass('losser').removeClass('winner');
+    $('.player01 .player-score').text(this.p1_score);
+    $('.player02 .player-score').text(this.p2_score);
 
   }
 
@@ -97,6 +99,13 @@ module.exports = class GameManager {
     this.light_index = null;
     this.gameover = true;
     clearInterval(this.game_timeout);
+
+    this.ctrl.fm
+      .saveScores({
+        'id' : this.ctrl.pm.player_id,
+        'score' : this.p1_score,
+        'name' : this.ctrl.pm.name
+      });
 
     if (this.p1_score > this.p2_score) {
       console.log('game:over:win');

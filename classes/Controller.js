@@ -109,6 +109,7 @@ module.exports = class Controller {
     }
 
     // PLAYER-RECORDS
+    this.pm.name = name;
     this.fm.updatePlayerAttribute(this.pm.player_id, 'name', name)
 
     $('.player01 .player-name').text(name);

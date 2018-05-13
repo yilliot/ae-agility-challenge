@@ -3,6 +3,7 @@ module.exports = class UiManager{
   constructor(ctrl)
   {
     this.timer = null;
+    this.hiscore = [];
     this.ctrl = ctrl;
     this.initEvent();
 
@@ -192,6 +193,22 @@ module.exports = class UiManager{
 
   clearWaitingCountdown() {
     clearInterval(this.timer);
+  }
+
+  updateHiScore(snapshot) {
+    this.hiscore.push(snapshot.val());
+    this.hiscore.sort(function(a,b) {return (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0);} );
+    console.log(this.hiscore);
+    $('#hs0 .name').text(this.hiscore[0].name);
+    $('#hs0 .score').text(this.hiscore[0].score);
+    if (this.hiscore[1]) {
+      $('#hs1 .name').text(this.hiscore[1].name);
+      $('#hs1 .score').text(this.hiscore[1].score);
+    }
+    if (this.hiscore[2]) {
+      $('#hs2 .name').text(this.hiscore[2].name);
+      $('#hs2 .score').text(this.hiscore[2].score);
+    }
   }
 
   updateOpponentPlayerData(snapshot) {

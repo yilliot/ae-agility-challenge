@@ -234,3 +234,27 @@ section.module{
   left: 84px;
   top: 1208px;
 }
+
+#hs-board{
+  position: fixed;
+  top: 0px;
+  padding-top: 15px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #e8e8e9;
+}
+
+#hs-board .hs-block {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  font-family: opensans-bolditalic;
+  font-size: 2.1em;
+}
+
+#hs-board .hs-block .score{
+  padding: 0 5px;
+}

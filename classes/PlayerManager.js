@@ -4,8 +4,9 @@ module.exports = class PlayerManager
     this.ctrl = ctrl;
     let that = this;
 
-    this.player_id = null; // auto id firebase/player
     this.config_player_id = 1; // config station 1 / 2
+    this.player_id = null; // auto id firebase/player
+    this.name = null;
     this.stage = null;
     this.opponent_stage = 0;
 
