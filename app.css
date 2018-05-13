@@ -13,20 +13,6 @@
 #backdrop-video{
   position: absolute;
 }
-#debug{
-  z-index: 10;
-  display: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 50%;
-}
-#debug table{
-  width: 100%;
-}
-#debug table td {
-  border: 1px solid #CCC;
-}
 
 section.module{
   overflow: hidden;
@@ -35,10 +21,7 @@ section.module{
   position: relative;
 }
 
-#s03-waiting {
-}
-
-#s03-waiting .btn-waiting{
+#s02-screen-saver .btn-waiting{
   top: 1518px;
   left: 88px;
   position: relative;
@@ -59,13 +42,13 @@ section.module{
 .w800px{
   width: 800px;
 }
-#s03-waiting .waiting-line01{
+#s02-screen-saver .waiting-line01{
   top: 1560px;
   left: 136px;
   width: 800px;
   position: absolute;
 }
-#s03-waiting .waiting-line02{
+#s02-screen-saver .waiting-line02{
   top: 1641px;
   left: 136px;
   width: 800px;
@@ -73,19 +56,19 @@ section.module{
 }
 
 /* 04 CAMERA */
-#s04-camera{
+#s03-camera{
   background-image: url(images/bg-camera.png);
 }
 
-#s04-camera .camera,
-#s04-camera .output
+#s03-camera .camera,
+#s03-camera .output
 {
   position: absolute;
   top: 344px;
   left: 196px;
 }
-#s04-camera .output {z-index: 2;}
-#s04-camera #keyboard-name {
+#s03-camera .output {z-index: 2;}
+#s03-camera #keyboard-name {
   border: 0px;
   position: absolute;
   text-align: center;
@@ -98,12 +81,12 @@ section.module{
 .keyboard:focus {
     outline: none;
 }
-#s04-camera #tick{
+#s03-camera #tick{
   position: absolute;
   top: 1450px;
   left: 64px;
 }
-#s04-camera .ui-keyboard{
+#s03-camera .ui-keyboard{
   font-size: 20px;
   background-color: white;
   left: 90px;
@@ -112,11 +95,11 @@ section.module{
   border: 0;
   bottom: 524px;
 }
-#s04-camera #cam-video{
+#s03-camera #cam-video{
   position: absolute;
   top: 0;
 }
-#s04-camera .camera .count_down_text{
+#s03-camera .camera .count_down_text{
   position: absolute;
   left: 140px;
   top: 230px;
@@ -125,7 +108,7 @@ section.module{
   color: rgba(255,255,255,0.5);
 }
 
-#s04-camera #btn-start-game
+#s03-camera #btn-start-game
 {
   position: absolute;
   top: 1566px;

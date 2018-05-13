@@ -65,10 +65,10 @@ module.exports = class FirebaseManager {
         score : null,
       });
   }
-  updatePlayerStage(player, stage)
+  updateUserStage(user, stage)
   {
     this.database
-      .ref('users/' + player)
+      .ref('users/' + user)
       .update({
         stage: stage
       });

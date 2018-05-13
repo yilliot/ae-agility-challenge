@@ -1,20 +1,9 @@
 module.exports = class Controller {
   constructor() {
     this.gotoSelectPort();
-    // this.gotoWaiting();
-    // $('section.module').hide();
-    // $('#s03-waiting').show();
-    // $('.player-passive').hide();
-
-  }
-  gotoSelectPort() {
-    $('section.module').hide();
-    $('#s01-select-port').show();
   }
 
-
-  registerModules(fm, am, pm, ui, cm, gm)
-  {
+  registerModules(fm, am, pm, ui, cm, gm) {
     this.fm = fm;
     this.am = am;
     this.pm = pm;
@@ -23,88 +12,85 @@ module.exports = class Controller {
     this.gm = gm;
 
     this.fm.logoutUser();
-    // this.fm.loginUser(1);
-    // this.singlePlayerMode();
   }
 
-  // INIT EVENT
-  initComEvent(ports) {
-    this.ui.initComEvent(ports)
+  // S1
+  gotoSelectPort() {
+    $('section.module').hide();
+    $('#s01-config').show();
   }
 
-  // 01
-  connectComPort(name) {
-    this.am.connectComPort(name);
-  }
-  loginUser() {
-    this.fm.loginUser(this.pm.getPlayer())
-  }
-
-  // 02
+  // S2.1
   gotoScreenSaver() {
+    // RESET STAGE VAR
+    clearInterval(this.gm.game_timeout);
+    this.pm.reset();
+    this.gm.reset();
+
+    // RESET DB
+    this.updateUserStage('S2.1'); // ScreenSaver
+    this.fm.resetUser(this.pm.config_player_id)
+
+    // RESET UI
+    $('.player-passive').hide();
+    $('.player-active').hide();
+    $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
     $('section.module').hide();
     $('#s02-screen-saver').show();
-    $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
-    this.updatePlayerStage(1);
-    this.fm.resetUser(this.pm.getPlayer())
-    this.gm.gameover = true;
-    this.gm.light_index = null;
-    this.gm.game_timer_seconds = 0;
-    clearInterval(this.gm.game_timeout);
-
   }
 
-  // 03 WAITING PAGE
+  // S2.2 WAITING PAGE
   gotoWaiting() {
-    $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
-    if (this.pm.getOpponentStage() == 1) {
-      // waiting for opponent
-      this.updatePlayerStage(2);
-      $('section.module').hide();
-      $('#s03-waiting').show();
-      $('.player-passive').hide();
-      $('.player-active').show();
-      $('.countdown').text(15);
 
+    // S2.2 Wait to join
+    if (this.pm.opponent_stage == 'S2.1') {
+      // waiting for opponent
+      this.updateUserStage('S2.2');
+      $('.player-active').show();
+
+      $('.countdown').text(15);
       this.ui.waitingCountdown(15, () => {
         this.singlePlayerMode();
       })
     } else {
-      // single player mode
       this.singlePlayerMode();
     }
   }
 
   // 04 AFTER WAITING, player / user setup
   singlePlayerMode() {
-    console.log('single player mode');
+    console.log('PLAYER.MODE:1');
     this.gm.mode = 1;
-    this.setupPlayer();
+    this.gotoCamera();
   }
   twoPlayerMode() {
-    console.log('two player mode');
+    console.log('PLAYER.MODE:2');
     this.gm.mode = 2;
-    this.setupPlayer();
+    this.gotoCamera();
   }
-  setupPlayer() {
+  gotoCamera() {
+
+    // SETUP PLAYER, DB
     let player_id = this.fm.newPlayer();
     this.pm.player_id = player_id;
-    this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_id', player_id);
-    this.ui.clearWaitingCountdown();
+    this.updateUserStage('S3');
+
+    if (this.gm.mode == 2)
+      this.fm.updateUserAttribute(this.pm.config_player_id, 'player_id', player_id);
+
+    // RESET UI / STAGE var
     this.cm.has_taken_photo = false;
+    this.ui.clearWaitingCountdown();
+    this.ui.keyboard_name.enabled = true;
+    this.ui.keyboard_name.toggle();
     $('#cam-photo').attr('src', '');
-    this.updatePlayerStage(3);
     $('#wb-timer-text').hide();
-
-    $('section.module').hide();
-    $('#s04-camera').show();
-
     $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
-
     $('.keyboard').val('');
     $('#btn-start-game').unbind('click');
     $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
-
+    $('section.module').hide();
+    $('#s03-camera').show();
   }
   uploadPlayerPhoto(blob) {
       this.fm.uploadBlob(this.pm.player_id, blob);
@@ -112,14 +98,14 @@ module.exports = class Controller {
   updateUserPhotoUrl(url) {
     // VS MODE
     if (this.gm.mode == 2)
-      this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_photo_url', url)
+      this.fm.updateUserAttribute(this.pm.config_player_id, 'player_photo_url', url)
   }
   startGameBtnClick(name) {
 
     // VS MODE
     if (this.gm.mode == 2) {
-      this.fm.updateUserAttribute(this.pm.getPlayer(), 'player_name', name)
-      this.fm.updateUserAttribute(this.pm.getPlayer(), 'score', 0)
+      this.fm.updateUserAttribute(this.pm.config_player_id, 'player_name', name)
+      this.fm.updateUserAttribute(this.pm.config_player_id, 'score', 0)
     }
 
     // PLAYER-RECORDS
@@ -144,7 +130,7 @@ module.exports = class Controller {
   // 05
   readyToStartGame()
   {
-    this.updatePlayerStage(4);
+    this.updateUserStage('S4');
 
     if (this.gm.mode == 1) {
 
@@ -152,7 +138,7 @@ module.exports = class Controller {
       // #WA
       this.startGameAI();
     } else {
-      if (this.pm.getOpponentStage() == 4) {
+      if (this.pm.opponent_stage == 'S4') {
 
         // B first
         // #WD
@@ -174,35 +160,25 @@ module.exports = class Controller {
   startGameAI()
   {
     this.gm.mode = 1;
-    this.updatePlayerStage(4);
+    this.updateUserStage('S4');
     $('section.module').hide();
     $('#s05-game').show();
     $('.player02 .player-name').text('AI');
     $('.player02 .player-photo').attr('src', 'images/ai.png');
     $('.player02 .player-score').text(0);
 
-    this.gm.startAI();
+    this.gm.startGameAI();
   }
   startGameBattle()
   {
     this.gm.mode = 2;
-    this.updatePlayerStage(4);
+    this.updateUserStage('S4');
     $('section.module').hide();
     $('#s05-game').show();
-    this.gm.startGame(60);
-  }
-  triggerButton(index)
-  {
-    this.gm.triggerButton(index)
-  }
-  lightOn(index) {
-    this.am.lightOn(index);
-  }
-  lightOff() {
-    this.am.lightOff();
+    this.gm.startGame();
   }
   updateScore(score) {
-    this.fm.updateUserAttribute(this.pm.getPlayer(), 'score', score);
+    this.fm.updateUserAttribute(this.pm.config_player_id, 'score', score);
   }
 
   // 06
@@ -220,18 +196,18 @@ module.exports = class Controller {
   }
 
   // SHARED
-  updatePlayerStage(stage)
+  updateUserStage(stage)
   {
-    this.pm.updateStage(stage);
-    this.fm.updatePlayerStage(this.pm.getPlayer(), stage);
+    this.pm.stage = stage;
+    this.fm.updateUserStage(this.pm.config_player_id, stage);
   }
 
   updateOpponentPlayerData(snapshot)
   {
-    if (snapshot.stage !== this.pm.getOpponentStage()) {
+    if (snapshot.stage !== this.pm.opponent_stage) {
       this.onOpponentChangedStageCallback(snapshot.stage);
     }
-    this.pm.updateOpponentStage(snapshot.stage)
+    this.pm.opponent_stage = snapshot.stage;
 
     // VS GAME mode
     if (this.gm.mode == 2) {
@@ -241,51 +217,50 @@ module.exports = class Controller {
 
   onDisconnected()
   {
-    this.fm.onDisconnected(this.pm.getPlayer());
+    this.fm.onDisconnected(this.pm.config_player_id);
   }
 
   onOpponentData()
   {
-    this.fm.onPlayerData(this.pm.getOpponentPlayer());
+    this.fm.onPlayerData(this.pm.getOpponentConfigPlayerId());
   }
 
   onOpponentChangedStageCallback(stage)
   {
-    this.pm.updateOpponentStage(stage);
-    // EVENT : PASSIVE PLAYER MODE EVENT
-    if (stage == 2 && this.pm.getStage() === 1) {
-      this.updatePlayerStage(2);
-      $('section.module').hide();
-      $('#s03-waiting').show();
-      $('.player-active').hide();
+    this.pm.opponent_stage = stage;
+    // S2.3 PB, ASKED to JOIN
+    if (
+      this.pm.is_player_a === false &&
+      this.pm.stage === 'S2.1' &&
+      stage == 'S2.2'
+    ) {
+      this.updateUserStage('S2.3');
       $('.player-passive').show();
-      $('#backdrop-video').attr('src', 'videos/screensaver-loop.mp4');
-      $('.countdown').text(15);
 
+      $('.countdown').text(15);
       this.ui.waitingCountdown(15, () => {
         this.gotoScreenSaver()
       });
     }
 
     // SCREENSAVER - CAMERA
-    // EVENT : ACTIVE PLAYER ACCEPTED EVENT
+    // PB response
     if (
       this.pm.is_player_a &&
-      this.pm.getStage() === 2 &&
-      stage == 3
+      this.pm.stage === 'S2.1' &&
+      stage == 'S3'
     ) {
       this.twoPlayerMode();
     }
 
-    // '#s01-select-port', //0
+    // '#s01-config',      //0
     // '#s02-screen-saver',//1
-    // '#s03-waiting',     //2
-    // '#s04-camera',      //3
+    // '#s03-camera',      //3
     // '#s05-game'         //4
 
     // CAMERA - GAME
     // EVENT : A first And B responded
-    if (stage == 4 && this.pm.getStage() === 4) {
+    if (stage == 4 && this.pm.stage === 4) {
       // A First
       // #WC
       this.startGameBattle();
@@ -294,7 +269,7 @@ module.exports = class Controller {
     }
 
     // EVENT : B first And A left
-    if (stage == 4 && this.pm.getStage() === 3) {
+    if (stage == 4 && this.pm.stage === 3) {
       // B First
       // #WE
       this.opponent_left_timeout = setTimeout(() => {

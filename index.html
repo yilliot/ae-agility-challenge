@@ -16,23 +16,29 @@
     <script>if (window.module) module = window.module;</script>
   </head>
   <body>
-    <div id="debug">
-      <table>
-        <tr><th>PlayerId</th><td id="apid"></td></tr>
-        <tr><th>OppPlayerId</th><td id="bpid"></td></tr>
-      </table>
-    </div>
     <video src="videos/bg-loop.mp4" autoplay="autoplay" loop="loop" id="backdrop-video"></video>
-    <section class="module" id="s01-select-port">
+    <section class="module" id="s01-config">
       <div class="ui container">
         <div class="ui hidden divider"></div>
-        <div class="ui horizontal divider">
-          Player Number
-        </div>
+        <h1 class="ui header">Configuration</h1>
         <div class="ui form">
+          <div class="ui horizontal divider">
+            Player Number
+          </div>
           <select name="player" id="choose-player" class="ui fluid dropdown">
             <option value="1">1st</option>
             <option value="2">2nd</option>
+          </select>
+          <div class="ui horizontal divider">
+            Game Timer Seconds
+          </div>
+          <select name="input-game-timer-seconds" id="input-game-timer-seconds" class="ui fluid dropdown">
+            <option value="60">60</option>
+            <option value="30">30</option>
+            <option value="20">20</option>
+            <option value="15">15</option>
+            <option value="10">10</option>
+            <option value="5">5</option>
           </select>
         </div>
         <h1 class="ui header">Connect to the Arduino</h1>
@@ -42,8 +48,6 @@
       </div>
     </section>
     <section class="module" id="s02-screen-saver">
-    </section>
-    <section class="module" id="s03-waiting">
       <img src="images/btn-huge-grey.png" class="player-active btn-waiting"  />
       <img src="images/btn-huge.png" class="player-passive btn-waiting"  />
       <div class="waiting-line01 white-text w800px player-active">Waiting for Player 2 to connect...</div>
@@ -52,7 +56,7 @@
       <div class="waiting-line02 red-text w800px player-passive"> <i class="time icon"> </i> <span class="countdown">15</span>s</div>
     </section>
 
-    <section class="module" id="s04-camera">
+    <section class="module" id="s03-camera">
       <div class="camera">
         <div class="count_down_text"></div>
         <video id="cam-video" style="transform: rotateZ(90deg) rotateY(180deg);">Video stream not available.</video>

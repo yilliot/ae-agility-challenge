@@ -3,22 +3,36 @@ module.exports = class GameManager {
   constructor(ctrl)
   {
     this.ctrl = ctrl;
-    this.mode = 0; // 1, 2
-    this.p1_score = 0;
-    this.p2_score = 0;
-    this.gameover = false;
+
     // this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     this.light_array = [1, 2, 3];
-    this.light_index = null;
-    this.game_timer_seconds = 0;
+    this.input_game_timer_seconds = 60;
+
+    this.reset();
 
     this.initKeyEvent();
   }
 
+  reset()
+  {
+    this.mode = 0;
+    this.p1_score = 0;
+    this.p2_score = 0;
+    this.gameover = true;
+    this.light_index = null;
+    $('.player01 .player-photo,.player02 .player-photo').removeClass('losser').removeClass('winner');
+
+  }
+
   initKeyEvent(){
+    let that = this;
     $(document).keypress((e)=>{
       this.triggerButton(e.key);
     });
+    $('#input-game-timer-seconds').change(function(){
+      that.input_game_timer_seconds = $(this).val();
+    });
+
   }
 
   triggerButton(index)
@@ -44,18 +58,9 @@ module.exports = class GameManager {
     $('.player02 .player-score').text(this.p2_score);
   }
 
-  resetGame() {
+  startGameAI() {
+    console.log('game:start:AI');
     this.gameover = false;
-    this.p1_score = 0;
-    this.p2_score = 0;
-    $('.player01 .player-photo,.player02 .player-photo').removeClass('losser').removeClass('winner');
-
-  }
-
-  startAI()
-  {
-    this.resetGame()
-    console.log('startAI');
     let ai_range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
     let AIPlay = () => {
@@ -69,27 +74,68 @@ module.exports = class GameManager {
         setTimeout(AIPlay, reaction_variation)
     }
     AIPlay()
-    this.startGame(5)
+    this.startGame()
   }
+
+  startGame() {
+    console.log('game:start');
+    this.gameover = false;
+    let seconds = this.input_game_timer_seconds;
+    let that = this;
+    $('#game-timer').text(seconds);
+    let countdown = () => {
+      $('#game-timer').text(seconds);
+      if (seconds <= 0) {
+        clearInterval(this.game_timeout);
+        that.gameOver();
+      }
+      seconds--;
+    };
+    this.game_timeout = setInterval(countdown, 1000);
+    this.lightOn(3);
+  }
+
+  gameOver() {
+    this.light_index = null;
+    this.gameover = true;
+    clearInterval(this.game_timeout);
+
+    if (this.p1_score > this.p2_score) {
+      console.log('game:over:win');
+      $('.player01 .player-photo').addClass('winner').removeClass('losser');
+      $('.player02 .player-photo').addClass('losser').removeClass('winner');
+      $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
+      $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
+      this.ctrl.fm.getQrCode((src) => {
+        console.log(src);
+      });
+    } else {
+      console.log('game:over:lose');
+      $('.player01 .player-photo').addClass('losser').removeClass('winner');
+      $('.player02 .player-photo').addClass('winner').removeClass('losser');
+      $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
+      $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-lose.png)');
+    }
+
+    this.ctrl.gotoResult();
+  }
+
 
   lightOn(seconds)
   {
     this.light_index = this.light_array[Math.floor(Math.random() * this.light_array.length)];
-    // DEMO light
+
     console.log('on:' + this.light_index);
-    // $('#lights .light:nth-child(' + (this.light_index+1) + ')').addClass('up');
-    this.ctrl.lightOn(this.light_index);
+    this.ctrl.am.lightOn(this.light_index);
 
     this.light_timer = setTimeout(() => {
-      this.lightOff(this.light_index)
+      this.lightOff()
     }, seconds * 1000);
   }
 
   lightOff()
   {
-    // DEMO light
-    $('#lights .light').removeClass('up');
-    this.ctrl.lightOff();
+    this.ctrl.am.lightOff();
 
     clearInterval(this.light_timer);
 
@@ -98,51 +144,5 @@ module.exports = class GameManager {
         this.lightOn(3)
       }, 100)
     }
-    this.light_index
   }
-
-  startGame(seconds)
-  {
-    this.gameover = false;
-    let that = this;
-    let countdown = () => {
-      $('#game-timer').text(seconds);
-      if (seconds <= 0) {
-        clearInterval(this.game_timeout);
-        that.gameOver();
-      }
-      this.game_timer_seconds = seconds--;
-    };
-    this.game_timeout = setInterval(countdown, 1000);
-    this.lightOn(3);
-  }
-
-  gameOver()
-  {
-    console.log('gameover');
-    this.light_index = null;
-    this.gameover = true;
-    this.ctrl.gotoResult();
-    clearInterval(this.game_timeout);
-    // win
-    if (this.p1_score > this.p2_score) {
-      console.log('win');
-      $('.player01 .player-photo').addClass('winner').removeClass('losser');
-      $('.player02 .player-photo').addClass('losser').removeClass('winner');
-      $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
-      $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
-      this.ctrl.fm.getQrCode((src) => {
-        console.log(src);
-      });
-    // lose
-    } else {
-      console.log('lose');
-      $('.player01 .player-photo').addClass('losser').removeClass('winner');
-      $('.player02 .player-photo').addClass('winner').removeClass('losser');
-      $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
-      $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-lose.png)');
-    }
-
-  }
-
 }

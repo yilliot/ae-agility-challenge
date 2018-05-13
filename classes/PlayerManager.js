@@ -1,37 +1,27 @@
 module.exports = class PlayerManager
 {
   constructor(ctrl) {
-    this.player_id = null; // auto id firebase/player
-    this.player = 1;
-    this.stage = 0;
-    this.opponent_stage = 0;
-    this.is_player_a = false;
-
     this.ctrl = ctrl;
     let that = this;
+
+    this.player_id = null; // auto id firebase/player
+    this.config_player_id = 1; // config station 1 / 2
+    this.stage = null;
+    this.opponent_stage = 0;
+
+    this.is_player_a = false;
+
     $('#choose-player').change(function(){
-      that.player = $(this).val();
+      that.config_player_id = $(this).val();
     });
   }
 
-  updateStage(stage)
+  reset()
   {
-    this.stage = stage;
+    this.is_player_a = false;    
   }
-  updateOpponentStage(stage)
-  {
-    this.opponent_stage = stage;
-  }
-  getStage() {
-    return this.stage;
-  }
-  getOpponentStage() {
-    return this.opponent_stage;
-  }
-  getPlayer() {
-    return this.player;
-  }
-  getOpponentPlayer() {
-    return this.player == 1 ? 2 : 1;
+
+  getOpponentConfigPlayerId() {
+    return this.config_player_id == 1 ? 2 : 1;
   }
 }

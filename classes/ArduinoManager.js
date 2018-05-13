@@ -23,7 +23,7 @@ class ArduinoManager
 
     SerialPort.list((err, ports) => {
       // console.log(ports);
-      ctrl.initComEvent(ports);
+      ctrl.ui.initComEvent(ports);
     });
   }
 
@@ -50,7 +50,8 @@ class ArduinoManager
           // console.log(btn_name.trim());
           if (this.btn_indexes[btn_name.trim()]) {
             // console.log('btn:' + this.btn_indexes[btn_name.trim()]);
-            this.ctrl.triggerButton(this.btn_indexes[btn_name.trim()]);
+            let index = this.btn_indexes[btn_name.trim()];
+            this.ctrl.gm.triggerButton(index)
           }
           buffer = [];
       }
