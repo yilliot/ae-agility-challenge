@@ -1,6 +1,6 @@
 # TODO
 
-## Winner QRcode
+## Winner QRcode Dispense
 
 ## 3 High scores
 

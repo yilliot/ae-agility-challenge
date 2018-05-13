@@ -205,7 +205,7 @@ module.exports = class Controller {
   updateOpponentPlayerData(snapshot)
   {
     if (snapshot.stage !== this.pm.opponent_stage) {
-      this.onOpponentChangedStageCallback(snapshot.stage);
+      this.onOpponentChangeStage(snapshot.stage);
     }
     this.pm.opponent_stage = snapshot.stage;
 
@@ -215,17 +215,7 @@ module.exports = class Controller {
     }
   }
 
-  onDisconnected()
-  {
-    this.fm.onDisconnected(this.pm.config_player_id);
-  }
-
-  onOpponentData()
-  {
-    this.fm.onPlayerData(this.pm.getOpponentConfigPlayerId());
-  }
-
-  onOpponentChangedStageCallback(stage)
+  onOpponentChangeStage(stage)
   {
     this.pm.opponent_stage = stage;
     // S2.3 PB, ASKED to JOIN

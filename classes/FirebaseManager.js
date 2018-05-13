@@ -17,33 +17,29 @@ module.exports = class FirebaseManager {
     this.database = firebase.database();
     this.storage = firebase.storage();
 
-    var that = this;
-    this.auth.onAuthStateChanged(function(user) {
+    this.auth.onAuthStateChanged((user) => {
       if (user) {
         console.log('user login : ' + user.email);
-        that.ctrl.onDisconnected() // EVENT INIT
-        that.ctrl.onOpponentData() // EVENT INIT
 
-        that.ctrl.gotoScreenSaver()
-        // that.ctrl.startGameAI()
+        // ON DISCONECTED EVENT
+        this.database
+          .ref('users/' + this.ctrl.pm.config_player_id)
+          .onDisconnect()
+          .update({stage: 0})
+
+        this.database
+          .ref('users/' + this.ctrl.pm.getOpponentConfigPlayerId())
+          .on('value', function(snapshot){
+            this.ctrl.updateOpponentPlayerData(snapshot.val());
+          });
+
+        this.ctrl.gotoScreenSaver()
+        // this.ctrl.startGameAI()
       }
     });
   }
-  getQrCode(callback) {
-    console.log('Calling Qr Code');
-    let that = this;
-    this.database.ref('codes')
-      .orderByChild('type')
-      .equalTo('agile')
-      .limitToFirst(1)
-      .once('value', function(snapshot) {
-        let code = Object.keys(snapshot.val())[0];
-        callback(code);
-        // is dispensed
-        // that.database.ref('codes/' + code + '/isDispensed').set(true);
-        // that.database.ref('codes/' + code + '/type').set('dispensedAgile');
-      });
-  }
+
+  // AUTH
   loginUser(player) {
     let email = 'user' + player + '@mail.io';
     let pass = 'user' + player + '@mail.io';
@@ -53,6 +49,8 @@ module.exports = class FirebaseManager {
   logoutUser() {
     this.auth.signOut();
   }
+
+  // USER
   resetUser(user) {
     this.database
       .ref('users/' + user)
@@ -64,13 +62,8 @@ module.exports = class FirebaseManager {
         score : null,
       });
   }
-  updateUserStage(user, stage)
-  {
-    this.database
-      .ref('users/' + user)
-      .update({
-        stage: stage
-      });
+  updateUserStage(user, stage) {
+    this.updatePlayerAttribute(user, 'stage', stage);
   }
   updateUserAttribute(user, key, value) {
     let data = {};
@@ -80,34 +73,8 @@ module.exports = class FirebaseManager {
       .update(data);
   }
 
-  uploadBlob(player_id, blob)
-  {
-    var camRef = this.storage.ref('players/' + player_id + '.jpg');
-    camRef.put(blob).then((snapshot) => {
-      camRef.getDownloadURL().then((url) => {
-        this.ctrl.updateUserPhotoUrl(url);
-        console.log('Uploaded image : ' + url);
-      });
-    });
-  }
 
-  onPlayerData(player)
-  {
-    let that = this;
-    this.database
-      .ref('users/' + player)
-      .on('value', function(snapshot){
-        that.ctrl.updateOpponentPlayerData(snapshot.val());
-      });
-  }
-
-  onDisconnected(player)
-  {
-    this.database.ref('users/' + player).onDisconnect().update({
-      stage: 0
-    })
-  }
-
+  // PLAYER
   newPlayer()
   {
     console.log('new player');
@@ -127,6 +94,32 @@ module.exports = class FirebaseManager {
     this.database
       .ref('players/' + player)
       .update(data);
+  }
+
+  getQrCode(callback) {
+    console.log('Calling Qr Code');
+    let that = this;
+    this.database.ref('codes')
+      .orderByChild('type')
+      .equalTo('agile')
+      .limitToFirst(1)
+      .once('value', function(snapshot) {
+        let code = Object.keys(snapshot.val())[0];
+        callback(code);
+        // is dispensed
+        // that.database.ref('codes/' + code + '/isDispensed').set(true);
+        // that.database.ref('codes/' + code + '/type').set('dispensedAgile');
+      });
+  }
+
+  uploadBlob(player_id, blob) {
+    var camRef = this.storage.ref('players/' + player_id + '.jpg');
+    camRef.put(blob).then((snapshot) => {
+      camRef.getDownloadURL().then((url) => {
+        this.ctrl.updateUserPhotoUrl(url);
+        console.log('Uploaded image : ' + url);
+      });
+    });
   }
 
 }

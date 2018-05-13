@@ -204,9 +204,8 @@ module.exports = class UiManager{
     this.QRCode.toCanvas(
       this.qrcode_canvas,
       code,
-      {
-        'width' : 283
-      }, (error) => {
+      {'width' : 283},
+      (error) => {
         if (error) console.error(error)
         console.log('success!');
     })
