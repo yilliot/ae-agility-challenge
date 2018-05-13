@@ -44,16 +44,14 @@ module.exports = class GameManager {
     }
   }
 
-  p1AddScore(n)
-  {
+  p1AddScore(n) {
     this.p1_score += n;
     $('.player01 .player-score').text(this.p1_score);
     if (this.mode == 2) {
       this.ctrl.updateScore(this.p1_score);
     }
   }
-  p2AddScore(n)
-  {
+  p2AddScore(n) {
     this.p2_score += n;
     $('.player02 .player-score').text(this.p2_score);
   }
@@ -106,8 +104,9 @@ module.exports = class GameManager {
       $('.player02 .player-photo').addClass('losser').removeClass('winner');
       $('#s06-result').css('background-image', 'url(images/bg-res-win.png)');
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
-      this.ctrl.fm.getQrCode((src) => {
-        console.log(src);
+      this.ctrl.fm.getQrCode((code) => {
+        console.log(code);
+        this.ctrl.ui.makeQrCode(code);
       });
     } else {
       console.log('game:over:lose');
@@ -121,8 +120,7 @@ module.exports = class GameManager {
   }
 
 
-  lightOn(seconds)
-  {
+  lightOn(seconds) {
     this.light_index = this.light_array[Math.floor(Math.random() * this.light_array.length)];
 
     console.log('on:' + this.light_index);
@@ -133,8 +131,7 @@ module.exports = class GameManager {
     }, seconds * 1000);
   }
 
-  lightOff()
-  {
+  lightOff() {
     this.ctrl.am.lightOff();
 
     clearInterval(this.light_timer);

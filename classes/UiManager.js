@@ -1,9 +1,14 @@
+
 module.exports = class UiManager{
   constructor(ctrl)
   {
     this.timer = null;
     this.ctrl = ctrl;
     this.initEvent();
+
+    this.QRCode = require('qrcode');
+    this.qrcode_canvas = document.getElementById('qrcode_canvas');
+
   }
 
   initEvent()
@@ -185,15 +190,26 @@ module.exports = class UiManager{
     }, 1000);
   }
 
-  clearWaitingCountdown()
-  {
+  clearWaitingCountdown() {
     clearInterval(this.timer);
   }
-  updateOpponentPlayerData(snapshot)
-  {
+
+  updateOpponentPlayerData(snapshot) {
     $('.player02 .player-name').text(snapshot.player_name);
     $('.player02 .player-photo').attr('src', snapshot.player_photo_url);
     $('.player02 .player-score').text(snapshot.score);
+  }
+
+  makeQrCode(code) {
+    this.QRCode.toCanvas(
+      this.qrcode_canvas,
+      code,
+      {
+        'width' : 283
+      }, (error) => {
+        if (error) console.error(error)
+        console.log('success!');
+    })
   }
 
 }

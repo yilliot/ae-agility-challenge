@@ -38,7 +38,6 @@ module.exports = class FirebaseManager {
       .limitToFirst(1)
       .once('value', function(snapshot) {
         let code = Object.keys(snapshot.val())[0];
-        console.log(code);
         callback(code);
         // is dispensed
         // that.database.ref('codes/' + code + '/isDispensed').set(true);

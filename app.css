@@ -226,3 +226,11 @@ section.module{
 #s07-thankyou {
   background-image: url(images/bg-thankyou-win.png);
 }
+
+#qrcode_canvas {
+  position: absolute;
+  height: 283px;
+  width: 283px;
+  left: 84px;
+  top: 1208px;
+}
