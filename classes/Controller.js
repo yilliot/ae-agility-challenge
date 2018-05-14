@@ -223,6 +223,7 @@ module.exports = class Controller {
 
     // VS GAME mode
     if (this.gm.mode == 2) {
+      this.gm.p2_score = snapshot.score;
       this.ui.updateOpponentPlayerData(snapshot)
     }
   }

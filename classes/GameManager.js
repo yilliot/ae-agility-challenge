@@ -41,7 +41,10 @@ module.exports = class GameManager {
   triggerButton(index)
   {
     console.log('hit:' + index);
-    if (this.light_index == index) {
+    if (
+      !this.gameover &&
+      this.light_index == index
+      ) {
       this.p1AddScore(1);
       this.lightOff();
     }
