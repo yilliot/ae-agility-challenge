@@ -2,4 +2,7 @@
 
 ## Winner QRcode Dispense
 
-## Camera Start Button Concurrent
+# Deploy
+
+- full screen
+- remove dev tools
