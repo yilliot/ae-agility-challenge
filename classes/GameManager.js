@@ -119,6 +119,7 @@ module.exports = class GameManager {
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-win.png)');
       this.ctrl.fm.getQrCode((code) => {
         console.log(code);
+        $('#qrcode_canvas').show();
         this.ctrl.ui.makeQrCode(code);
       });
     } else {
@@ -127,6 +128,7 @@ module.exports = class GameManager {
       $('.player02 .player-photo').addClass('winner').removeClass('losser');
       $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-lose.png)');
+      $('#qrcode_canvas').hide();
     }
 
     this.ctrl.gotoResult();
