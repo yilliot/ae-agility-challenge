@@ -17,12 +17,10 @@ module.exports = class UiManager{
     let that = this;
     // 01 Screen Saver
     $('#s02-screen-saver').click(() => {
-      if (this.ctrl.pm.is_player_a === null)
+      if (this.ctrl.pm.is_player_a === null) {
         this.ctrl.pm.is_player_a = true;
-      this.ctrl.gotoWaiting();
-    })
-
-    $('#s03-waiting').click(() => {
+        this.ctrl.gotoWaiting();
+      }
       if (!this.ctrl.pm.is_player_a) {
         this.ctrl.twoPlayerMode()
       }

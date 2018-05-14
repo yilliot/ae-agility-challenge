@@ -57,7 +57,7 @@ module.exports = class Controller {
     }
   }
 
-  // 04 AFTER WAITING, player / user setup
+  // player / user setup
   singlePlayerMode() {
     console.log('PLAYER.MODE:1');
     this.gm.mode = 1;
@@ -236,10 +236,10 @@ module.exports = class Controller {
     }
 
     // SCREENSAVER - CAMERA
-    // PB response
+    // S2.4 PB response
     if (
       this.pm.is_player_a &&
-      this.pm.stage === 'S2.1' &&
+      this.pm.stage === 'S2.2' &&
       stage == 'S3'
     ) {
       this.twoPlayerMode();
