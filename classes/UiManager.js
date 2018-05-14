@@ -62,7 +62,10 @@ module.exports = class UiManager{
         $('#btn-start-game').unbind('click');
         if ( that.ctrl.pm.stage !== 'S3.2' )
           $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
-        if (name.length != 0) {
+        if (
+          name.length != 0 &&
+          that.cm.has_taken_photo
+          ) {
           if ( that.ctrl.pm.stage !== 'S3.2' )
             $('#btn-start-game').attr('src', 'images/btn-start.png');
           $('#btn-start-game').on('click', () => {

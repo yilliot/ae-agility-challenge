@@ -84,6 +84,7 @@ module.exports = class Controller {
     this.ui.keyboard_name.enabled = true;
     this.ui.keyboard_name.toggle();
     $('#cam-photo').attr('src', '');
+    $('#tap-instruction').show();
     $('#wb-timer-text').hide();
     $('#we-timer-text').hide();
     $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');

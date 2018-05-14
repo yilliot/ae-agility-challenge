@@ -12,8 +12,9 @@ module.exports = class CameraManager {
     this.canvas = $('#cam-canvas')[0];
     this.photo = $('#cam-photo')[0];
 
-    $('#cam-video').click(() => {
-      // this.count_down_take_picture()
+    $('#cam-video,#tap-instruction').click(() => {
+      $('#tap-instruction').hide();
+      this.count_down_take_picture()
     });
 
     function gotDevices(deviceInfos) {

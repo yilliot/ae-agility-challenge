@@ -2,6 +2,4 @@
 
 ## Winner QRcode Dispense
 
-## 3 High scores
-
-## Multiplayer bugs
+## Camera Start Button Concurrent
