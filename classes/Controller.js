@@ -105,16 +105,13 @@ module.exports = class Controller {
     this.pm.name = name;
     this.fm.updatePlayerAttribute(this.pm.player_id, 'name', name)
 
+    $('#we-timer-text').hide();
+    $('#btn-start-game').unbind('click');
+    $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
     $('.player01 .player-name').text(name);
-
     if (this.cm.has_taken_photo) {
       this.readyToStartGame();
-      $('#btn-start-game').unbind('click');
-      $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
     } else {
-      $('#we-timer-text').hide();
-      $('#btn-start-game').unbind('click');
-      $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
       this.cm.count_down_take_picture();
       setTimeout(() => {
         console.log('readyToStartGame');
