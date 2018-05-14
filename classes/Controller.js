@@ -85,6 +85,7 @@ module.exports = class Controller {
     this.ui.keyboard_name.toggle();
     $('#cam-photo').attr('src', '');
     $('#wb-timer-text').hide();
+    $('#we-timer-text').hide();
     $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
     $('.keyboard').val('');
     $('#btn-start-game').unbind('click');
@@ -119,6 +120,7 @@ module.exports = class Controller {
       $('#btn-start-game').unbind('click');
       $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
     } else {
+      $('#we-timer-text').hide();
       $('#btn-start-game').unbind('click');
       $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
       this.cm.count_down_take_picture();
@@ -150,7 +152,9 @@ module.exports = class Controller {
       } else {
 
         // A first
-        this.ui.waitingPlayerCamera();
+        // S3.1
+        this.ui.S31();
+        this.updateUserStage('S3.1'); // A first
         this.ui.waitingCountdown(60, () => {
           // #WB
           this.startGameAI();
@@ -252,8 +256,7 @@ module.exports = class Controller {
 
     // CAMERA - GAME
     // EVENT : A first And B responded
-    if (stage == 4 && this.pm.stage === 4) {
-      // A First
+    if (stage == 'S4' && this.pm.stage === 'S4') {
       // #WC
       this.startGameBattle();
       clearInterval(this.ui.timer);
@@ -261,14 +264,15 @@ module.exports = class Controller {
     }
 
     // EVENT : B first And A left
-    if (stage == 4 && this.pm.stage === 3) {
-      // B First
-      // #WE
-      this.opponent_left_timeout = setTimeout(() => {
+    // S3.2
+    if (stage == 'S4' && this.pm.stage === 'S3') {
+      this.updateUserStage('S3.2'); // B first
+      this.ui.S32();
+      console.log('PA is ready, waiting PB 60secs');
+      this.ui.waitingCountdown(60, () => {
+        // #WE
         this.gotoScreenSaver();
-      }, 60000);
+      });
     }
-
   }
-
 }

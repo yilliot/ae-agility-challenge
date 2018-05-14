@@ -108,14 +108,13 @@ section.module{
   color: rgba(255,255,255,0.5);
 }
 
-#s03-camera #btn-start-game
-{
+#s03-camera #btn-start-game {
   position: absolute;
   top: 1566px;
   left: 206px;
 }
 
-#wb-timer-text {
+#wb-timer-text, #we-timer-text {
   position: absolute;
   top: 1652px;
   left: 547px;

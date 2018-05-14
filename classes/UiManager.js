@@ -60,9 +60,11 @@ module.exports = class UiManager{
       'change' : function() {
         let name = $('#keyboard-name').val().trim();
         $('#btn-start-game').unbind('click');
-        $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
+        if ( that.ctrl.pm.stage !== 'S3.2' )
+          $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
         if (name.length != 0) {
-          $('#btn-start-game').attr('src', 'images/btn-start.png');
+          if ( that.ctrl.pm.stage !== 'S3.2' )
+            $('#btn-start-game').attr('src', 'images/btn-start.png');
           $('#btn-start-game').on('click', () => {
             that.keyboard_name.enabled = false;
             that.keyboard_name.toggle();
@@ -172,11 +174,16 @@ module.exports = class UiManager{
     });
   }
 
-  waitingPlayerCamera()
-  {
+  S31() {
     $('#btn-start-game').unbind('click');
     $('#btn-start-game').attr('src', 'images/btn-waiting-player.png');
+    $('#wb-timer-text').text('60');
     $('#wb-timer-text').show();
+  }
+  S32() {
+    $('#btn-start-game').attr('src', 'images/btn-player-waiting.png');
+    $('#we-timer-text').text('60');
+    $('#we-timer-text').show();
   }
   waitingCountdown(timer, callback)
   {
