@@ -79,20 +79,10 @@ module.exports = class Controller {
       this.fm.updateUserAttribute(this.pm.config_player_id, 'player_id', player_id);
 
     // RESET UI / STAGE var
-    this.cm.has_taken_photo = false;
+    this.cm.reset();
     this.ui.clearWaitingCountdown();
     this.ui.keyboard_name.enabled = true;
     this.ui.keyboard_name.toggle();
-    $('#cam-photo').attr('src', '');
-    $('#tap-instruction').show();
-    $('#wb-timer-text').hide();
-    $('#we-timer-text').hide();
-    $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
-    $('.keyboard').val('');
-    $('#btn-start-game').unbind('click');
-    $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
-    $('section.module').hide();
-    $('#s03-camera').show();
   }
   uploadPlayerPhoto(blob) {
       this.fm.uploadBlob(this.pm.player_id, blob);

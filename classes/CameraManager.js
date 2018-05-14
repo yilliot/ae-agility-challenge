@@ -8,6 +8,19 @@ module.exports = class CameraManager {
 
   reset()
   {
+    this.has_taken_photo = false;
+    $('#backdrop-video').attr('src', 'videos/bg-loop.mp4');
+    $('#cam-photo').attr('src', '');
+    $('.keyboard').val('');
+    $('#wb-timer-text').hide();
+    $('#we-timer-text').hide();
+    $('#btn-start-game').unbind('click');
+    $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
+
+    $('section.module').hide();
+    $('#s03-camera').show();
+
+    $('#tap-instruction').show();
     $('#cam-video,#tap-instruction').click(() => {
       $('#tap-instruction').hide();
       $('#cam-video,#tap-instruction').unbind('click');
