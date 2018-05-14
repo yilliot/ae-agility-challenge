@@ -91,7 +91,9 @@ module.exports = class GameManager {
       $('#game-timer').text(seconds);
       if (seconds <= 0) {
         clearInterval(this.game_timeout);
-        that.gameOver();
+        this.light_index = null;
+        this.gameover = true;
+        setTimeout(this.gameOver,1000)
       }
       seconds--;
     };
@@ -100,9 +102,6 @@ module.exports = class GameManager {
   }
 
   gameOver() {
-    this.light_index = null;
-    this.gameover = true;
-    clearInterval(this.game_timeout);
 
     this.ctrl.fm
       .saveScores({
