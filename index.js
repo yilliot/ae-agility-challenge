@@ -5,6 +5,7 @@ const PlayerManager = require('./classes/PlayerManager');
 const UiManager = require('./classes/UiManager');
 const CameraManager = require('./classes/CameraManager');
 const GameManager = require('./classes/GameManager');
+const electron = require('electron');
 
 let ctrl = new Controller();
 let fm   = new FirebaseManager(firebase, ctrl, config);
