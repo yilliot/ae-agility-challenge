@@ -15,6 +15,7 @@ module.exports = class GameManager {
 
   reset()
   {
+    clearInterval(this.game_timeout);
     this.mode = 0;
     this.p1_score = 0;
     this.p2_score = 0;

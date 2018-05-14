@@ -23,9 +23,9 @@ module.exports = class Controller {
   // S2.1
   gotoScreenSaver() {
     // RESET STAGE VAR
-    clearInterval(this.gm.game_timeout);
     this.pm.reset();
     this.gm.reset();
+    this.ui.clearWaitingCountdown();
 
     // RESET DB
     this.fm.resetUser(this.pm.config_player_id)
