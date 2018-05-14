@@ -132,19 +132,18 @@ module.exports = class Controller {
     }
   }
 
-  // 05
   readyToStartGame()
   {
-    console.log('updateUserStage:S4');
-    this.updateUserStage('S4');
-
     if (this.gm.mode == 1) {
 
       // A first
       // #WA
+      console.log('#START:WA');
       this.startGameAI();
+
     } else {
-      if (this.pm.opponent_stage == 'S4') {
+
+      if (this.pm.opponent_stage == 'S3.1') {
 
         // B first
         // #WD
@@ -171,6 +170,7 @@ module.exports = class Controller {
   startGameAI()
   {
     this.gm.mode = 1;
+    console.log('updateUserStage:S4');
     this.updateUserStage('S4');
     $('section.module').hide();
     $('#s05-game').show();
@@ -183,6 +183,7 @@ module.exports = class Controller {
   startGameBattle()
   {
     this.gm.mode = 2;
+    console.log('updateUserStage:S4');
     this.updateUserStage('S4');
     $('section.module').hide();
     $('#s05-game').show();
@@ -262,7 +263,7 @@ module.exports = class Controller {
 
     // CAMERA - GAME
     // EVENT : A first And B responded
-    if (stage == 'S4' && this.pm.stage === 'S4') {
+    if (stage == 'S4' && this.pm.stage === 'S3.1') {
       // #WC
       console.log('#START:WC');
       this.startGameBattle();
@@ -272,12 +273,13 @@ module.exports = class Controller {
 
     // EVENT : B first And A left
     // S3.2
-    if (stage == 'S4' && this.pm.stage === 'S3') {
+    if (stage == 'S3.1' && this.pm.stage === 'S3') {
       this.updateUserStage('S3.2'); // B first
       this.ui.S32();
       console.log('PA is ready, waiting PB 60secs');
       this.ui.waitingCountdown(60, () => {
         // #WE
+        console.log('#LEAVE:WE');
         this.gotoScreenSaver();
       });
     }
