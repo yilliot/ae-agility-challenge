@@ -10,7 +10,7 @@ module.exports = class PlayerManager
     this.stage = null;
     this.opponent_stage = 0;
 
-    this.is_player_a = false;
+    this.is_player_a = null;
 
     $('#choose-player').change(function(){
       that.config_player_id = $(this).val();
@@ -19,7 +19,7 @@ module.exports = class PlayerManager
 
   reset()
   {
-    this.is_player_a = false;    
+    this.is_player_a = null;    
   }
 
   getOpponentConfigPlayerId() {

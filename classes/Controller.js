@@ -221,11 +221,12 @@ module.exports = class Controller {
     this.pm.opponent_stage = stage;
     // S2.3 PB, ASKED to JOIN
     if (
-      this.pm.is_player_a === false &&
+      this.pm.is_player_a === null &&
       this.pm.stage === 'S2.1' &&
       stage == 'S2.2'
     ) {
       this.updateUserStage('S2.3');
+      this.pm.is_player_a = false;
       $('.player-passive').show();
 
       $('.countdown').text(15);

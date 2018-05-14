@@ -17,7 +17,8 @@ module.exports = class UiManager{
     let that = this;
     // 01 Screen Saver
     $('#s02-screen-saver').click(() => {
-      this.ctrl.pm.is_player_a = true;
+      if (this.ctrl.pm.is_player_a === null)
+        this.ctrl.pm.is_player_a = true;
       this.ctrl.gotoWaiting();
     })
 
