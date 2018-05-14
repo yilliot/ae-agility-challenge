@@ -56,7 +56,7 @@ module.exports = class UiManager{
         'meta2'  : '#+=',
         'accept' : '\u21d3'
       },
-      'maxLength' : 15,
+      'maxLength' : 12,
       'change' : function() {
         let name = $('#keyboard-name').val().trim();
         $('#btn-start-game').unbind('click');
@@ -117,7 +117,7 @@ module.exports = class UiManager{
         'meta2'  : '#+=',
         'accept' : '\u21d3'
       },
-      'maxLength' : 15,
+      'maxLength' : 25,
       'change' : function() {
         let email = $('#keyboard-email').val().trim();
         $('#save-email').unbind('click');
