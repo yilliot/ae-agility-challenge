@@ -102,9 +102,10 @@ module.exports = class Controller {
       this.fm.updateUserAttribute(this.pm.config_player_id, 'player_photo_url', url)
   }
   startGameBtnClick(name) {
-
+    console.log('startGameBtnClick');
     // VS MODE
     if (this.gm.mode == 2) {
+      console.log('this.gm.mode:2');
       this.fm.updateUserAttribute(this.pm.config_player_id, 'player_name', name)
       this.fm.updateUserAttribute(this.pm.config_player_id, 'score', 0)
     }
@@ -125,6 +126,7 @@ module.exports = class Controller {
       $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
       this.cm.count_down_take_picture();
       setTimeout(() => {
+        console.log('readyToStartGame');
         this.readyToStartGame();
       }, 4000);
     }
@@ -133,6 +135,7 @@ module.exports = class Controller {
   // 05
   readyToStartGame()
   {
+    console.log('updateUserStage:S4');
     this.updateUserStage('S4');
 
     if (this.gm.mode == 1) {
@@ -145,6 +148,7 @@ module.exports = class Controller {
 
         // B first
         // #WD
+        console.log('#START:WD');
         this.startGameBattle();
         clearInterval(this.ui.timer);
         clearInterval(this.opponent_left_timeout);
@@ -154,9 +158,11 @@ module.exports = class Controller {
         // A first
         // S3.1
         this.ui.S31();
+        console.log('S3.1');
         this.updateUserStage('S3.1'); // A first
         this.ui.waitingCountdown(60, () => {
           // #WB
+          console.log('#WB');
           this.startGameAI();
         });
       }
@@ -258,6 +264,7 @@ module.exports = class Controller {
     // EVENT : A first And B responded
     if (stage == 'S4' && this.pm.stage === 'S4') {
       // #WC
+      console.log('#START:WC');
       this.startGameBattle();
       clearInterval(this.ui.timer);
       clearInterval(this.opponent_left_timeout);
