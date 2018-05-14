@@ -27,7 +27,7 @@ module.exports = class UiManager{
     })
 
     $('#cam-photo').click(() => {
-      $('#cam-photo').attr('src', '');
+      // $('#cam-photo').attr('src', '');
     })
 
     // 05
@@ -64,7 +64,7 @@ module.exports = class UiManager{
           $('#btn-start-game').attr('src', 'images/btn-start-disabled.png');
         if (
           name.length != 0 &&
-          that.cm.has_taken_photo
+          that.ctrl.cm.has_taken_photo
           ) {
           if ( that.ctrl.pm.stage !== 'S3.2' )
             $('#btn-start-game').attr('src', 'images/btn-start.png');

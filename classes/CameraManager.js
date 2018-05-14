@@ -6,16 +6,21 @@ module.exports = class CameraManager {
     this.initCamera()
   }
 
+  reset()
+  {
+    $('#cam-video,#tap-instruction').click(() => {
+      $('#tap-instruction').hide();
+      $('#cam-video,#tap-instruction').unbind('click');
+      this.count_down_take_picture()
+    });
+  }
+
   initCamera()
   {
     this.video = $('#cam-video')[0];
     this.canvas = $('#cam-canvas')[0];
     this.photo = $('#cam-photo')[0];
 
-    $('#cam-video,#tap-instruction').click(() => {
-      $('#tap-instruction').hide();
-      this.count_down_take_picture()
-    });
 
     function gotDevices(deviceInfos) {
       for (var i = 0; i !== deviceInfos.length; ++i) {
