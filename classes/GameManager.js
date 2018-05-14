@@ -93,7 +93,7 @@ module.exports = class GameManager {
         clearInterval(this.game_timeout);
         this.light_index = null;
         this.gameover = true;
-        setTimeout(this.gameOver,1000)
+        setTimeout(()=>{this.gameOver()}, 1000)
       }
       seconds--;
     };
