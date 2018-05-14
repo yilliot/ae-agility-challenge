@@ -72,9 +72,6 @@ module.exports = class FirebaseManager {
         score : null,
       });
   }
-  updateUserStage(user, stage) {
-    this.updatePlayerAttribute(user, 'stage', stage);
-  }
   updateUserAttribute(user, key, value) {
     let data = {};
     data[key] = value;

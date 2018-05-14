@@ -28,8 +28,8 @@ module.exports = class Controller {
     this.gm.reset();
 
     // RESET DB
-    this.updateUserStage('S2.1'); // ScreenSaver
     this.fm.resetUser(this.pm.config_player_id)
+    this.updateUserStage('S2.1'); // ScreenSaver
 
     // RESET UI
     $('.player-passive').hide();
@@ -200,7 +200,7 @@ module.exports = class Controller {
   updateUserStage(stage)
   {
     this.pm.stage = stage;
-    this.fm.updateUserStage(this.pm.config_player_id, stage);
+    this.fm.updateUserAttribute(this.pm.config_player_id, 'stage', stage);
   }
 
   updateOpponentPlayerData(snapshot)
