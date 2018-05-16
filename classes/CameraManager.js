@@ -20,12 +20,24 @@ module.exports = class CameraManager {
     $('section.module').hide();
     $('#s03-camera').show();
 
+    $('#tap-instruction-retake').hide();
     $('#tap-instruction').show();
-    $('#cam-video,#tap-instruction').click(() => {
+
+    let tap_instruction_event = () => {
       $('#tap-instruction').hide();
       $('#cam-video,#tap-instruction').unbind('click');
       this.count_down_take_picture()
-    });
+    };
+
+    $('#cam-video,#tap-instruction').click(tap_instruction_event);
+
+    $('#tap-instruction-retake').click(() => {
+      $('#cam-photo').attr('src', '');
+      $('#tap-instruction').show()
+      $('#tap-instruction-retake').hide()
+      $('#cam-video,#tap-instruction').click(tap_instruction_event);
+    })
+
   }
 
   initCamera()
@@ -75,7 +87,13 @@ module.exports = class CameraManager {
 
   count_down_take_picture()
   {
-    this.count_down(3, '.count_down_text', ()=>{this.take_picture()});
+    this.count_down(3, '.count_down_text', ()=>{
+      this.take_picture()
+      $('#tap-instruction-retake').show();
+      this.ctrl.ui.keyboard_name.enabled = true;
+      this.ctrl.ui.keyboard_name.toggle();
+
+    });
   }
 
   count_down(seconds, placeholder, action) {

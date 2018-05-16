@@ -81,7 +81,7 @@ module.exports = class Controller {
     // RESET UI / STAGE var
     this.cm.reset();
     this.ui.clearWaitingCountdown();
-    this.ui.keyboard_name.enabled = true;
+    this.ui.keyboard_name.enabled = false;
     this.ui.keyboard_name.toggle();
   }
   uploadPlayerPhoto(blob) {

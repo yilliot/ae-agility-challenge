@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title>Agility</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <link rel="stylesheet" href="semantic/dist/semantic.min.css">
     <link rel="stylesheet" href="node_modules/virtual-keyboard/dist/css/keyboard-dark.min.css">
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="common.css">
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
     <script src="config.js"></script>
@@ -60,7 +63,8 @@
 
     <section class="module" id="s03-camera">
       <div class="camera">
-        <div id="tap-instruction" class="red-text">TAP HERE TO TAKE PHOTO</div>
+        <img id="tap-instruction" src="images/btn_snap.png" />
+        <img id="tap-instruction-retake" src="images/btn_retake.png" />
         <div class="count_down_text"></div>
         <video id="cam-video" style="transform: rotateZ(90deg) rotateY(180deg);">Video stream not available.</video>
       </div>
@@ -133,24 +137,25 @@
       </div>
       <canvas id="qrcode_canvas"></canvas>
     </section>
-    <div id="hs-board">
-      <div id="hs0" class="hs-block">
-        <div class="order">1st : </div>
-        <div class="score"></div>
-        <div class="name"></div>
-        <div>,</div>
-      </div>
-      <div id="hs1" class="hs-block">
-        <div class="order">2nd : </div>
-        <div class="score"></div>
-        <div class="name"></div>
-        <div>,</div>
-      </div>
-      <div id="hs2" class="hs-block">
-        <div class="order">3rd : </div>
-        <div class="score"></div>
-        <div class="name"></div>
-        <div>,</div>
+    <div id="hs-board" class="marquee">
+      <div class="content">
+        <div id="hs0" class="d-inline-block hs-block">
+          <div class="d-inline-block order">1st : </div>
+          <div class="d-inline-block score"></div>
+          <div class="d-inline-block name"></div>
+          <div class="d-inline-block">,</div>
+        </div>
+        <div id="hs1" class="d-inline-block hs-block">
+          <div class="d-inline-block order">2nd : </div>
+          <div class="d-inline-block score"></div>
+          <div class="d-inline-block name"></div>
+          <div class="d-inline-block">,</div>
+        </div>
+        <div id="hs2" class="d-inline-block hs-block">
+          <div class="d-inline-block order">3rd : </div>
+          <div class="d-inline-block score"></div>
+          <div class="d-inline-block name"></div>
+        </div>
       </div>
     </div>
     <script src="index.js"></script>

@@ -26,9 +26,6 @@ module.exports = class UiManager{
       }
     })
 
-    $('#cam-photo').click(() => {
-      // $('#cam-photo').attr('src', '');
-    })
 
     // 05
     $('#btn-quit').click(() => {
@@ -117,7 +114,7 @@ module.exports = class UiManager{
         'meta2'  : '#+=',
         'accept' : '\u21d3'
       },
-      'maxLength' : 25,
+      'maxLength' : 60,
       'change' : function() {
         let email = $('#keyboard-email').val().trim();
         $('#save-email').unbind('click');
@@ -160,6 +157,9 @@ module.exports = class UiManager{
 
     this.keyboard_name = $('#keyboard-name').getkeyboard();
     this.keyboard_email = $('#keyboard-email').getkeyboard();
+    this.keyboard_name.enabled = false;
+    this.keyboard_name.toggle();
+
   }
 
   initComEvent(ports)

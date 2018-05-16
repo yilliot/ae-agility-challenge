@@ -75,6 +75,7 @@ module.exports = class GameManager {
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
       // console.log('reaction_variation:' + reaction_variation);
       if (!this.gameover)
+        this.lightOff()
         setTimeout(AIPlay, reaction_variation)
     }
     AIPlay()

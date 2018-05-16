@@ -6,6 +6,9 @@ const UiManager = require('./classes/UiManager');
 const CameraManager = require('./classes/CameraManager');
 const GameManager = require('./classes/GameManager');
 const electron = require('electron');
+var webFrame = require('electron').webFrame
+webFrame.setVisualZoomLevelLimits(1, 1)
+webFrame.setLayoutZoomLevelLimits(0, 0)
 
 let ctrl = new Controller();
 let fm   = new FirebaseManager(firebase, ctrl, config);
