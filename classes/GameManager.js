@@ -19,6 +19,7 @@ module.exports = class GameManager {
     this.mode = 0;
     this.p1_score = 0;
     this.p2_score = 0;
+    this.ai_fastest_reaction = 5000;
     this.gameover = true;
     this.light_index = null;
     $('.player01 .player-photo,.player02 .player-photo').removeClass('losser').removeClass('winner');
@@ -34,6 +35,10 @@ module.exports = class GameManager {
     });
     $('#input-game-timer-seconds').change(function(){
       that.input_game_timer_seconds = $(this).val();
+    });
+
+    $('#input-ai-level').change(function(){
+      that.ai_fastest_reaction = $(this).val();
     });
 
   }
@@ -70,9 +75,8 @@ module.exports = class GameManager {
 
     let AIPlay = () => {
       this.p2AddScore(1);
-      let ai_fastest_reaction = 460;
-      // let ai_fastest_reaction = 3460;
-      let reaction_variation_array = ai_range(ai_fastest_reaction, ai_fastest_reaction + 500);
+      // let this.ai_fastest_reaction = 3460;
+      let reaction_variation_array = ai_range(this.ai_fastest_reaction, this.ai_fastest_reaction * 1.6);
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
       // console.log('reaction_variation:' + reaction_variation);
       if (!this.gameover) {
