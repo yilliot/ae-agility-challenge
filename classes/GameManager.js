@@ -4,8 +4,8 @@ module.exports = class GameManager {
   {
     this.ctrl = ctrl;
 
-    // this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-    this.light_array = [1, 2, 3];
+    this.light_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    // this.light_array = [1, 2, 3];
     this.input_game_timer_seconds = 60;
 
     this.reset();
@@ -40,6 +40,7 @@ module.exports = class GameManager {
 
   triggerButton(index)
   {
+    this.ctrl.im.zeroIdeaTimer();
     console.log('hit:' + index);
     if (
       !this.gameover &&
@@ -74,9 +75,10 @@ module.exports = class GameManager {
       let reaction_variation_array = ai_range(ai_fastest_reaction, ai_fastest_reaction + 500);
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
       // console.log('reaction_variation:' + reaction_variation);
-      if (!this.gameover)
+      if (!this.gameover) {
         this.lightOff()
         setTimeout(AIPlay, reaction_variation)
+      }
     }
     AIPlay()
     this.startGame()

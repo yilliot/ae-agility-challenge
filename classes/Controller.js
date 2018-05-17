@@ -3,13 +3,14 @@ module.exports = class Controller {
     this.gotoSelectPort();
   }
 
-  registerModules(fm, am, pm, ui, cm, gm) {
+  registerModules(fm, am, pm, ui, cm, gm, im) {
     this.fm = fm;
     this.am = am;
     this.pm = pm;
     this.ui = ui;
     this.cm = cm;
     this.gm = gm;
+    this.im = im;
 
     this.fm.logoutUser();
   }

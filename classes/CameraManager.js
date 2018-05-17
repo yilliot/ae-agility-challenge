@@ -38,6 +38,8 @@ module.exports = class CameraManager {
       $('#cam-video,#tap-instruction').click(tap_instruction_event);
     })
 
+    this.ctrl.im.start(90, ()=>{ctrl.gotoScreenSaver();});
+
   }
 
   initCamera()
@@ -67,7 +69,7 @@ module.exports = class CameraManager {
         console.log("An error occured! " + err);
       });
 
-    this.width = 686;    // We will scale the photo width to this
+    this.width = 912;    // We will scale the photo width to this
     this.height = 0;     // This will be computed based on the input stream
     let streaming = false;
 
