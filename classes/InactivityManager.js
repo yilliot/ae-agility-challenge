@@ -23,6 +23,10 @@ module.exports = class InactivityManager {
     $(document).keypress((e) => {
       this.idle_time = 0;
     });
+
+    window.addEventListener('touchstart', function() {
+      this.idle_time = 0;
+    })
   }
 
   zeroIdeaTimer() {
