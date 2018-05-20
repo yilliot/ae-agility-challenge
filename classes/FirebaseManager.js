@@ -122,7 +122,7 @@ module.exports = class FirebaseManager {
         callback(code);
         // is dispensed
         // that.database.ref('codes/' + code + '/isDispensed').set(true);
-        // that.database.ref('codes/' + code + '/type').set('dispensedAgile');
+        that.database.ref('codes/' + code + '/type').set('dispensedAgile');
       });
   }
 

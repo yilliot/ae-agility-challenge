@@ -38,7 +38,7 @@ module.exports = class CameraManager {
       $('#cam-video,#tap-instruction').click(tap_instruction_event);
     })
 
-    this.ctrl.im.start(90, ()=>{ctrl.gotoScreenSaver();});
+    this.ctrl.im.start(()=>{ctrl.gotoScreenSaver();});
 
   }
 

@@ -27,6 +27,8 @@ module.exports = class Controller {
     this.pm.reset();
     this.gm.reset();
     this.ui.clearWaitingCountdown();
+    this.im.stop();
+
 
     // RESET DB
     this.fm.resetUser(this.pm.config_player_id)

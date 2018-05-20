@@ -64,8 +64,10 @@ module.exports = class GameManager {
     }
   }
   p2AddScore(n) {
-    this.p2_score += n;
-    $('.player02 .player-score').text(this.p2_score);
+    if (!this.gameover) {
+      this.p2_score += n;
+      $('.player02 .player-score').text(this.p2_score);
+    }
   }
 
   startGameAI() {
