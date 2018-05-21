@@ -127,6 +127,7 @@ module.exports = class GameManager {
       this.ctrl.fm.getQrCode((code) => {
         console.log(code);
         $('#qrcode_canvas').show();
+        $('#qrcode_text').show().text(code);
         this.ctrl.ui.makeQrCode(code);
       });
     } else {
@@ -136,6 +137,7 @@ module.exports = class GameManager {
       $('#s06-result').css('background-image', 'url(images/bg-res-lose.png)');
       $('#s07-thankyou').css('background-image', 'url(images/bg-thankyou-lose.png)');
       $('#qrcode_canvas').hide();
+      $('#qrcode_text').hide();
     }
 
     this.ctrl.gotoResult();

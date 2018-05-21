@@ -264,6 +264,16 @@ section.module{
   left: 84px;
   top: 1208px;
 }
+#qrcode_text {
+  font-family: opensans-bolditalic;
+  display: block;
+  position: absolute;
+  width: 283px;
+  left: 84px;
+  top: 1478px;
+  text-align: center;
+  font-size: 3em;
+}
 
 #hs-board {
   position: fixed;
