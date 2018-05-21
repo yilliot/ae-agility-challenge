@@ -82,7 +82,6 @@ module.exports = class GameManager {
       let reaction_variation = reaction_variation_array[Math.floor(Math.random() * reaction_variation_array.length)];
       // console.log('reaction_variation:' + reaction_variation);
       if (!this.gameover) {
-        this.lightOff()
         setTimeout(AIPlay, reaction_variation)
       }
     }
@@ -146,7 +145,7 @@ module.exports = class GameManager {
   lightOn(seconds) {
     this.light_index = this.light_array[Math.floor(Math.random() * this.light_array.length)];
 
-    console.log('on:' + this.light_index);
+    console.log('ledon:' + this.light_index);
     this.ctrl.am.lightOn(this.light_index);
 
     this.light_timer = setTimeout(() => {
@@ -155,6 +154,7 @@ module.exports = class GameManager {
   }
 
   lightOff() {
+    console.log('ledoff');
     this.ctrl.am.lightOff();
 
     clearInterval(this.light_timer);
