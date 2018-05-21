@@ -48,11 +48,11 @@ class ArduinoManager
             btn_name += String.fromCharCode(a);
           });
           // console.log(btn_name.trim());
-          if (this.btn_indexes[btn_name.trim()]) {
+          // if (this.btn_indexes[btn_name.trim()]) {
             // console.log('btn:' + this.btn_indexes[btn_name.trim()]);
             let index = this.btn_indexes[btn_name.trim()];
             this.ctrl.gm.triggerButton(index)
-          }
+          // }
           buffer = [];
       }
     });
