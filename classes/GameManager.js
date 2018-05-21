@@ -19,7 +19,7 @@ module.exports = class GameManager {
     this.mode = 0;
     this.p1_score = 0;
     this.p2_score = 0;
-    this.ai_fastest_reaction = 5000;
+    this.ai_fastest_reaction = 1000;
     this.gameover = true;
     this.light_index = null;
     $('.player01 .player-photo,.player02 .player-photo').removeClass('losser').removeClass('winner');
